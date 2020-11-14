@@ -1,0 +1,102 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.ProductionOrder>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>Current PRODUCTION ORDERS</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="orders">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>TITLE</th>
+                                                <th>START DATE</th>
+                                                <th>EXPECTED DATE</th>
+                                                <th>FINAL PRODUCT</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>TITLE</th>
+                                                <th>START DATE</th>
+                                                <th>EXPECTED DATE</th>
+                                                <th>FINAL PRODUCT</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th>@item.Id</th>
+                                                    <td>@item.Title</td>
+                                                    <td>@item.StartDate</td>
+                                                    <td>@item.ExpectedDate</td>
+                                                    <td>@item.PId</td>
+                                                    <td>@item.Status</td>
+                                                    <td>
+                                                        <button onclick="window.location.href = '/Production/Edit/@item.Id'" type="button" class="btn btn-primary">Edit</button>
+                                                        <button data-product-id="@item.Id" type="button" class="btn btn-danger js-delete">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#orders .js-delete").on("click",
+                    function () {
+                        var btnRef = $(this);
+                        var btn = $(this).attr("data-product-id")
+                        bootbox.confirm("Are you sure you want to delete this product?",
+                            function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/Api/Productions/" + btn,
+                                        method: "DELETE",
+                                        success: function () {
+                                            btnRef.parents("tr").remove();
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                }
+                            });
+                    });
+            });
+            document.getElementById("1").className = "";
+            document.getElementById("2").className = "";
+            document.getElementById("3").className = "active";
+            document.getElementById("4").className = "";
+            document.getElementById("5").className = "";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>

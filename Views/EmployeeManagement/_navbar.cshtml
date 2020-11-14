@@ -1,0 +1,27 @@
+﻿<nav class="side-navbar">
+    <!-- Sidebar Header-->
+    <div class="sidebar-header d-flex align-items-center">
+        <div class="avatar"><img src="~/Content/img/dummy-user-img-1.png" alt="..." class="img-fluid rounded-circle"></div>
+        <div class="title">
+            <h1 class="h4"> @Session["fullname"]</h1>
+            <p>Production Admin</p>
+        </div>
+    </div>
+    <!-- Sidebar Navidation Menus-->
+    <ul class="list-unstyled">
+        <li id="1" class="active">
+            <a href="~/EmployeeManagement"><i class="icon-padnote"></i> All Employees</a> <!-- change name here !!! -->
+        </li>
+        <li id="2">
+            <a href="~/EmployeeManagement/AddEmployee"> <i class="icon-grid"></i>Add Employee</a>
+        </li>
+        <li id="3">
+            <a href="~/EmployeeManagement/CalculateSalary"> <i class="icon-padnote"></i> Calculate Salary </a>
+        </li>
+        <li id="4">
+            <a href="~/EmployeeManagement/SalaryDetail"> <i class="icon-padnote"></i> Salary Detail </a>
+        </li>
+
+       
+    </ul>
+</nav>

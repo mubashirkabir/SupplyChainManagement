@@ -1,0 +1,239 @@
+﻿@model IEnumerable<SupplyChainManagement.ViewModels.EmployeeAdd>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>Salary Detail</h2>
+                                <button id="printBtn" onclick="printBtn()" style="position: absolute; top:10px; right: 50px; background: transparent; background-repeat: no-repeat; border: none; outline: none; height: 40px; width: 40px;">
+                                    <img src="~/Content/img/print-icon.png" width="38px" height="38px" />
+                                </button>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="orders">
+                                        <thead>
+                                        <tr>
+                                            <th>ID #</th>
+                                            <th>Name</th>
+                                            <th>LastName</th>
+                                            <th>Position</th>
+                                            <th>Month</th>
+                                            <th>No of Days</th>
+                                            <th>Allowance</th>
+                                            <th>Year</th>
+                                            <th>Total Salary</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>ID #</th>
+                                            <th>Name</th>
+                                            <th>LastName</th>
+                                            <th>Position</th>
+                                            <th>Month</th>
+                                            <th>No of Days</th>
+                                            <th>Allowance</th>
+                                            <th>Year</th>
+                                            <th>Total Salary</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.employeeManagement.Id</td>
+                                                <td>@item.employeeManagement.Name</td>
+                                                <td>@item.employeeManagement.LastName</td>
+                                                <td>@item.employeeManagement.Position</td>
+                                                <td>@item.EmployeeSalary.Month</td>
+                                                <td>@item.EmployeeSalary.WDays</td>
+                                                <td>@item.EmployeeSalary.Allowance</td>
+                                                <td>@item.EmployeeSalary.Year</td>
+                                                <td>@item.EmployeeSalary.Total</td>
+                                            </tr>
+                                        }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+       
+
+        <script>
+
+        for (var i = 1; i <= 10; i++) {
+        document.getElementById(i).className = "";
+        }
+
+        function printBtn() {
+        var JsonArray = [];
+        @foreach (var item in Model)
+        {
+
+            @:JsonArray.push({EmployeeID: '@item.employeeManagement.Id', Name: '@item.employeeManagement.Name', LastName: '@item.employeeManagement.LastName', Position: '@item.employeeManagement.Position ', Month: '@item.EmployeeSalary.Month', WorkingDays: '@item.EmployeeSalary.WDays', Year:'@item.EmployeeSalary.Year', Allowance:'@item.EmployeeSalary.Allowance', TotalSalary: '@item.EmployeeSalary.Total'});
+        }
+        printJS({
+        header: '<h3 class="PrintHeader"> ALL SALARIES </h3>',
+        printable: JsonArray,
+        properties: [
+        { field: 'EmployeeID', displayName: 'Employee ID'},
+        { field: 'Name', displayName: 'Name'},
+        { field: 'LastName', displayName: 'Last Name'},
+        { field: 'Position', displayName: 'Position' },
+        { field: 'Month', displayName: 'Month' },
+        { field: 'WorkingDays', displayName: 'Working Days'},
+        { field: 'Allowance', displayName: 'Allowance' },
+        { field: 'Year', displayName: 'Year' },
+        { field: 'TotalSalary', displayName: 'Total Salary'}
+        ],
+        type: 'json',
+        style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+        });
+        console.log();
+
+        }
+        function printBtn() {
+        var JsonArray = [];
+        @foreach (var item in Model)
+        {
+
+             @:JsonArray.push({EmployeeID: '@item.employeeManagement.Id', Name: '@item.employeeManagement.Name', LastName: '@item.employeeManagement.LastName', Position: '@item.employeeManagement.Position ', Month: '@item.EmployeeSalary.Month', WorkingDays: '@item.EmployeeSalary.WDays', Year:'@item.EmployeeSalary.Year', Allowance:'@item.EmployeeSalary.Allowance', TotalSalary: '@item.EmployeeSalary.Total'});
+        }
+        printJS({
+            header: '<h3 class="PrintHeader">Employee Detail</h3>',
+
+        printable: JsonArray,
+        properties: [
+        { field: 'EmployeeID', displayName: 'Employee ID'},
+        { field: 'Name', displayName: 'Name'},
+        { field: 'LastName', displayName: 'Last Name'},
+        { field: 'Position', displayName: 'Position' },
+        { field: 'Month', displayName: 'Month' },
+        { field: 'WorkingDays', displayName: 'Working Days' },
+            { field: 'Allowance', displayName: 'Allowance' },
+         { field: 'Year', displayName: 'Year' },
+        { field: 'TotalSalary', displayName: 'Total Salary' }
+
+        ],
+
+
+
+        type: 'json',
+        style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+
+        });
+        console.log();
+
+        }
+
+        document.getElementById("one").click();
+        document.getElementById("1").className = "active";
+
+
+
+
+
+
+
+
+
+        function PrintSalary() {
+        var JsonArray = [];
+
+
+        @foreach (var item in Model)
+        {
+
+            @:JsonArray.push({EmployeeID: '@item.employeeManagement.Id', Name: '@item.employeeManagement.Name', LastName: '@item.employeeManagement.LastName', Position: '@item.employeeManagement.Position ', Month: '@item.EmployeeSalary.Month', WorkingDays: '@item.EmployeeSalary.WDays', Allowance:'@item.EmployeeSalary.Allowance', TotalSalary: '@item.EmployeeSalary.Total'});
+        }
+
+
+        printJS({
+        header: '<h3 class="PrintHeader"> ALL SALARIES </h3>',
+        printable: JsonArray,
+        properties: [
+        { field: 'EmployeeID', displayName: 'Employee ID'},
+        { field: 'Name', displayName: 'Name'},
+        { field: 'LastName', displayName: 'Last Name'},
+        { field: 'Position', displayName: 'Position' },
+        { field: 'Month', displayName: 'Month' },
+        { field: 'WorkingDays', displayName: 'Working Days'},
+         { field: 'Allowance', displayName: 'Allowance'},
+        { field: 'TotalSalary', displayName: 'Total Salary'}
+        ],
+        type: 'json',
+        style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+        });
+        console.log();
+
+        }
+        function PrintSalary() {
+        var JsonArray = [];
+        @foreach (var item in Model)
+        {
+
+             @:JsonArray.push({EmployeeID: '@item.employeeManagement.Id', Name: '@item.employeeManagement.Name', LastName: '@item.employeeManagement.LastName', Position: '@item.employeeManagement.Position ', Month: '@item.EmployeeSalary.Month', WorkingDays: '@item.EmployeeSalary.WDays', Allowance:'@item.EmployeeSalary.Allowance', TotalSalary: '@item.EmployeeSalary.Total'});
+        }
+        printJS({
+            header: '<h3 class="PrintHeader">Employee Details</h3>',
+
+        printable: JsonArray,
+        properties: [
+        { field: 'EmployeeID', displayName: 'Employee ID'},
+        { field: 'Name', displayName: 'Name'},
+        { field: 'LastName', displayName: 'Last Name'},
+        { field: 'Position', displayName: 'Position' },
+        { field: 'Month', displayName: 'Month' },
+        { field: 'WorkingDays', displayName: 'Working Days' },
+        { field: 'Allowance', displayName: 'Allowance'},
+        { field: 'TotalSalary', displayName: 'Total Salary'}
+        ],
+
+        type: 'json',
+        style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+        });
+        console.log();
+
+        }
+
+        document.getElementById("one").click();
+        document.getElementById("1").className = "active";
+
+
+        </script>
+
+        <script>
+            document.getElementById("1").className = "";
+            document.getElementById("2").className = "";
+            document.getElementById("3").className = "";
+            document.getElementById("4").className = "active";
+            document.getElementById("5").className = "";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>

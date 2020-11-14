@@ -1,0 +1,132 @@
+﻿@model List<SupplyChainManagement.ViewModels.ProductionAddOrder>
+@{
+    ViewBag.Title = "Index";
+    var newId = "";
+    var prevId = "";
+
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>ALL PRODUCTION ORDERS</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="orders">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>TITLE</th>
+                                                <th>START DATE</th>
+                                                <th>EXPECTED DATE</th>
+                                                <th>FINAL PRODUCT</th>
+                                                <th>REQUIRED PRODUCT</th>
+                                                <th>QUANTITY</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>TITLE</th>
+                                                <th>START DATE</th>
+                                                <th>EXPECTED DATE</th>
+                                                <th>FINAL PRODUCT</th>
+                                                <th>REQUIRED PRODUCT</th>
+                                                <th>QUANTITY</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                newId = item.productionOrder.Id;
+                                                if (newId != prevId)
+                                                {
+                                                    <tr>
+                                                        <th>@item.productionOrder.Id</th>
+                                                        <td>@item.productionOrder.Title</td>
+                                                        <td>@item.productionOrder.StartDate</td>
+                                                        <td>@item.productionOrder.ExpectedDate</td>
+                                                        <td>@item.productionOrder.PId</td>
+                                                        <td>@item.productionRawMaterial.PId</td>
+                                                        <td>@item.productionRawMaterial.Quantity</td>
+                                                        <td>@item.productionOrder.Status</td>
+                                                        <td>
+                                                            <button data-product-id="@item.productionOrder.Id" type="button" class="btn btn-danger js-delete">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                    prevId = item.productionOrder.Id;
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <th></th>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>@item.productionRawMaterial.PId</td>
+                                                        <td>@item.productionRawMaterial.Quantity</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#orders .js-delete").on("click",
+                    function () {
+                        var btnRef = $(this);
+                        var btn = $(this).attr("data-product-id")
+                        bootbox.confirm("Are you sure you want to delete this product?",
+                            function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/Api/Home/ProductionsDeleteOrder/" + btn,
+                                        method: "DELETE",
+                                        success: function () {
+                                            btnRef.parents("tr").remove();
+
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                }
+                            });
+                    });
+            });
+
+          
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("four").click();
+            document.getElementById("11").className = "active";
+        
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>

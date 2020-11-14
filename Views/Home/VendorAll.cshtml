@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.VendorDetail>
+@{
+    ViewBag.Title = "All Vendor";
+
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>ALL VENDORS</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="vendors">
+                                        <thead>
+                                            <tr>
+                                                <th>VENDOR ID</th>
+                                                <th>NAME</th>
+                                                <th>EMAIL</th>
+                                                <th>PHONE NUMBER</th>
+                                                <th>ADDRESS</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>VENDOR ID</th>
+                                                <th>NAME</th>
+                                                <th>EMAIL</th>
+                                                <th>PHONE NUMBER</th>
+                                                <th>ADDRESS</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th>@item.VId</th>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Email</td>
+                                                    <td>@item.PhoneNumber</td>
+                                                    <td>@item.Address</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+        <script>
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("five").click();
+            document.getElementById("13").className = "active";
+        </script>
+    </div>
+</div>
+
+

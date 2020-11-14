@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.UsersDetail>
+@{
+    ViewBag.Title = "Search User";
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-xl-10 col-sm-10">
+                        <div class="TableHeading">
+                            <h2>Search User</h2>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input type="text" list="browsers" id="searchbox" class="form-control" placeholder="Search User" style="width: 80%; margin-left: 10%; margin-right: 10%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="dashboard-counts no-padding-bottom" style="padding-top:10px !important" id="searchSection">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-xl-10 col-sm-10">
+                        <div style="min-width:80%; margin-left:10%; margin-right:10%;" id="searchback">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+
+
+
+        &nbsp;
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#searchSection").css("display", "none");
+                $("#searchbox").keyup(function () {
+                    if ($("#searchbox").val() == "") {
+                        $("#searchback").html("");
+                    }
+                    $("#searchback").html("");
+                    $("#searchSection").css("display", "block");
+                    $.ajax({
+                        url: "/Api/Home/SearchUser/" + $("#searchbox").val(),
+                        type: "Get",
+                        success: function (data) {
+                            $.each(data, function (index) {
+                                $("#searchback")
+                                    .append("<a href='/home/UserEdit/" + data[index].Id + "'><p>User Name: " + data[index].UserName + " &nbsp; | &nbsp; Full Name: " + data[index].FullName + "</p></a><br />");
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("Error");
+                        }
+
+                    });
+                });
+            });
+
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("three").click();
+            document.getElementById("9").className = "active";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+

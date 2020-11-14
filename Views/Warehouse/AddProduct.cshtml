@@ -1,0 +1,225 @@
+﻿@model SupplyChainManagement.ViewModels.WarehouseProductJoin
+
+@{
+    ViewBag.Title = "Add Products";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 90%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card">
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+                                        <h4>Add Warehouse Product</h4>
+                                        <hr />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.Wproducts.PId)
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(model => model.Wproducts.PId, new { @class = "form-control", required = "required", @autofocus = "autofocus" })
+                                                @Html.ValidationMessageFor(model => model.Wproducts.PId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.Wproducts.Name)
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(model => model.Wproducts.Name, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Wproducts.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.Wproducts.Price)
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(model => model.Wproducts.Price, new { type = "number", @class = "form-control", required = "required", min = 1 })
+                                                @Html.ValidationMessageFor(model => model.Wproducts.Price, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    Select Product category:
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <select name="PType" class="form-control" id="PType" required="required">
+                                                    <option value="" selected disabled hidden>Please select category </option>
+                                                    <option value="Bed">Bed</option> 
+                                                    <option value="Chair">Chair</option>
+                                                    <option value="Sofa">Sofa</option>
+                                                    <option value="Desks">Desks</option>
+                                                    <option value="Table">Table</option>
+                                                    <option value="Button">Button</option>
+                                                    <option value="Thread">Thread</option>
+                                                    <option value="Wood">Wood</option>
+                                                    <option value="Sheet">Sheet</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    Sub-Category:
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <select name="PCategory" id="PCategory" class="form-control" required="required">
+                                                    <option value="" selected disabled hidden>Please select category first </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.Wproducts.Description)
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(model => model.Wproducts.Description, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Wproducts.Description, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WStock.Quantity)
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(model => model.WStock.Quantity, new { type = "number", @class = "form-control", required = "required", min = 0 })
+                                                @Html.ValidationMessageFor(model => model.WStock.Quantity, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WStock.ShelveNo)
+                                                </strong>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(model => model.WStock.ShelveNo, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.WStock.ShelveNo, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 offset-sm-3">
+                                                <button type="button" class="btn btn-secondary" onclick="window.location.href = 'Index'">Cancel</button>
+                                                <button type="submit" class="btn btn-primary">Add Product</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+        <script>
+            $('#PType').on('change', function () {
+                if (this.value == "Bed") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Single' selected>Single</option>");
+                    $('#PCategory').append("<option value='Twin'>Twin</option>");
+                    $('#PCategory').append(" <option value='Double'>Double</option>");
+                    $('#PCategory').append(" <option value='Queen'>Queen</option>");
+                    $('#PCategory').append(" <option value='King'>King</option>");
+                }
+                else if (this.value == "Chair") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Armchair' selected>Armchair</option>");
+                    $('#PCategory').append("<option value='General Chair'>General Chair</option>");
+                    $('#PCategory').append(" <option value='Dining Chair'>Dining Chair</option>");
+                    $('#PCategory').append(" <option value='Office Chair'>Office Chair</option>");
+                    $('#PCategory').append(" <option value='Revolving Chair'>Revolving Chair</option>");
+                    $('#PCategory').append(" <option value='Plastic Chair'>Plastic Chair</option>");
+                }
+                else if (this.value == "Sofa") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Drawing Sofa' selected>Drawing Sofa</option>");
+                    $('#PCategory').append("<option value='Couch'>Couch</option>");
+                    $('#PCategory').append(" <option value='Sofa Cum Bed'>Sofa Cum Bed</option>");
+                    $('#PCategory').append(" <option value='Corner Sofa'>Corner Sofa</option>");
+                }
+                else if (this.value == "Desks") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Writing desk' selected>Writing desk</option>");
+                    $('#PCategory').append("<option value='Computer desk'>Computer desk</option>");
+                    $('#PCategory').append(" <option value='Corner desk'>Corner desk</option>");
+                }
+                else if (this.value == "Table") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Work table' selected>Work table</option>");
+                    $('#PCategory').append("<option value='Dining table'>Dining table</option>");
+                    $('#PCategory').append(" <option value='Dressing table'>Dressing table</option>");
+                    $('#PCategory').append(" <option value='Console Table'>Console Table</option>");
+                    $('#PCategory').append(" <option value='Side Table'>Side Table</option>");
+                    $('#PCategory').append(" <option value='Computer Table'>Computer Table</option>");
+                    $('#PCategory').append(" <option value='Writing table'>Writing table</option>");
+                    $('#PCategory').append(" <option value='Conference table'>Conference table</option>");
+                }
+                else if (this.value == "Button") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Sofas Button' selected>Sofas Button</option>");
+                    $('#PCategory').append("<option value='Plain Button'>Plain Button</option>");
+                    $('#PCategory').append(" <option value='Fancy Button'>Fancy Button</option>");
+                }
+                else if (this.value == "Thread") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Thread' selected>Thread</option>");
+                }
+                else if (this.value == "Wood") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Palai' selected>Palai</option>");
+                    $('#PCategory').append("<option value='Cheerh'>Cheerh</option>");
+                    $('#PCategory').append(" <option value='Sagwan'>Sagwan</option>");
+                    $('#PCategory').append(" <option value='Deodar'>Deodar</option>");
+                }
+                else if (this.value == "Sheet") {
+                    $('#PCategory').find('option').remove();
+                    $('#PCategory').append("<option value='Sheet' selected>Sheet</option>");
+                }
+            });
+            for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("one").click();
+            document.getElementById("2").className = "active";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+

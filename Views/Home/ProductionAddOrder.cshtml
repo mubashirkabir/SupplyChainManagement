@@ -1,0 +1,132 @@
+﻿@model SupplyChainManagement.Models.ProductionOrder
+
+@{
+    ViewBag.Title = "Add Production Order";
+
+    List<SelectListItem> orderstatus = new List<SelectListItem>();
+    orderstatus.Add(new SelectListItem
+    {
+        Text = "In Progress",
+        Value = "InProgress"
+    });
+
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+
+                            @using (Html.BeginForm("AddProductonOrder", "Home"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>Add Production Order</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                           Enter Product ID:
+                                        </strong>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.PId, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(model => model.PId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                          Enter Product Quantity:
+                                        </strong>
+                                    </label>
+                                    <div class="col-sm-9">
+                                       <input type="number" name="PQuantity" min="1" value="1" required="required" class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                           Title:
+                                        </strong>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", required = "required", type = "text" })
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                            Start Date:
+                                        </strong>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", required = "required", type = "Date" })
+                                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                            Expected Date:
+                                        </strong>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.ExpectedDate, new { @class = "form-control", required = "required", type = "Date" })
+                                        @Html.ValidationMessageFor(model => model.ExpectedDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                            @Html.LabelFor(model => model.Status)
+                                        </strong>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        @Html.DropDownListFor(model => model.Status, orderstatus, "Select order status", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-4 offset-sm-3">
+                                        <button type="button" class="btn btn-secondary" onclick="window.location.href = 'Index'">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Add Order</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+        <script>
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("four").click();
+            document.getElementById("12").className = "active";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+

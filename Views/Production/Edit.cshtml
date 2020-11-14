@@ -1,0 +1,152 @@
+﻿@model SupplyChainManagement.ViewModels.ProductionAddOrder
+
+@{
+    ViewBag.Title = "Edit Production Order";
+    List<SelectListItem> orderstatus = new List<SelectListItem>();
+    orderstatus.Add(new SelectListItem
+    {
+        Text = "Completed",
+        Value = "Completed"
+    });
+
+    orderstatus.Add(new SelectListItem
+    {
+        Text = "InProgress",
+        Value = "InProgress"
+    });
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+
+                            @using (Html.BeginForm("UpdateOrder", "Production"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    <h4>EDIT PRODUCTION ORDER</h4>
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionOrder.Id)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionOrder.Id, new { @class = "form-control", required = "required"})
+                                            @Html.ValidationMessageFor(model => model.productionOrder.Id, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionOrder.PId)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionOrder.PId, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.productionOrder.PId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionOrder.Title)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionOrder.Title, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.productionOrder.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionOrder.StartDate)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionOrder.StartDate, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.productionOrder.StartDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionOrder.ExpectedDate)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionOrder.ExpectedDate, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.productionOrder.ExpectedDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionOrder.Status)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.DropDownListFor(model => model.productionOrder.Status, orderstatus, "Select order status", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.productionOrder.Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionRawMaterial.PId)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionRawMaterial.PId, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.productionRawMaterial.PId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.productionRawMaterial.Quantity)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.productionRawMaterial.Quantity, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.productionRawMaterial.Quantity, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 offset-sm-3">
+                                            <button type="submit" class="btn btn-primary">Update Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+
+        @Html.Partial("_footer")
+    </div>
+</div>
+

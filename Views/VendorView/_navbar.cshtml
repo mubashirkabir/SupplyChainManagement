@@ -1,0 +1,18 @@
+﻿<nav class="side-navbar">
+    <!-- Sidebar Header-->
+    <div class="sidebar-header d-flex align-items-center">
+        <div class="avatar"><img src="~/Content/img/dummy-user-img-1.png" alt="..." class="img-fluid rounded-circle"></div>
+        <div class="title">
+            <h1 class="h4"> @Session["fullname"]</h1>
+            <p>Vendor</p>
+        </div>
+    </div>
+    <ul class="list-unstyled">
+        <li id="1">
+            <a href="~/VendorView/Index/@Session["username"]">My Orders</a> 
+        </li>
+        <li id="2">
+            <a href="~/VendorView/MyDetail/@Session["username"]">My Details </a>
+        </li>
+    </ul>
+</nav>

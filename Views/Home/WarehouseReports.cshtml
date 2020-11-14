@@ -1,0 +1,548 @@
+﻿@model SupplyChainManagement.ViewModels.WarehouseReports
+@{
+    ViewBag.Title = "Warehouse Reports";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="tables">
+            <div class="container-fluid">
+                
+                    <h1 style="font-family: sans-serif; font-size: 35px; color: #212529; margin-left: 10px;"> Warehouse Reports</h1>
+                    <br />
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="col-8" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="productBtn">
+                                    All Products
+                                </button>
+                                <center>
+                                    <label>Download all products list registered</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-6">
+                        <div class="col-8" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="InventoryBtn">
+                                    Inventory
+                                </button>
+                                <center>
+                                    <label>Download current Inventory list</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-6">
+                        <div class="col-8" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="InboundBtn">
+                                    All Inbound Orders
+                                </button>
+                                <center>
+                                    <label>Download Inbound Orders list</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-6">
+                        <div class="col-8" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="OutboundBtn">
+                                    All Outbound Orders
+                                </button>
+                                <center>
+                                    <label>Download Outbound Orders list</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-6">
+                        <div class="col-12" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 15px;">
+                                <center>
+                                    <label style="font-size: 25px;">Download All Orders in between selected date</label>
+                                    <br />
+                                    <br />
+                                </center>
+                                <div class="form-group row" style="width: 80%; margin-left: 15%; margin-right: 5%;">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px;">
+                                        <strong>
+                                            Starting Date:
+                                        </strong>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="date" name="dateInitial" id="dateInitial" required="required" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="width: 80%; margin-left: 15%; margin-right: 5%;">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                            End Date:
+                                        </strong>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="date" name="dateend" id="dateend" required="required" class="form-control" />
+                                    </div>
+                                </div>
+                                <button class="pure-material-button-contained" id="AllOrder">
+                                    All Current Orders
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-6">
+                        <div class="col-12" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 15px;">
+                                <center>
+                                    <label style="font-size: 25px;">Download All Completed Orders in between selected date</label>
+                                    <br />
+                                    <br />
+                                </center>
+                                <div class="form-group row" style="width: 80%; margin-left: 15%; margin-right: 5%;">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px;">
+                                        <strong>
+                                            Starting Date:
+                                        </strong>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="date" name="cdateInitial" id="cdateInitial" required="required" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="width: 80%; margin-left: 15%; margin-right: 5%;">
+                                    <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                        <strong>
+                                            End Date:
+                                        </strong>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="date" name="cdateend" id="cdateend" required="required" class="form-control" />
+                                    </div>
+                                </div>
+                                <button class="pure-material-button-contained" id="cAllOrder">
+                                    All Completed Orders
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <script type="text/javascript">
+            //Date Setting
+
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("dateInitial").value = "2019-11-10";
+            document.getElementById("dateend").value = today;
+            document.getElementById("dateInitial").setAttribute("min", "2019-11-10");
+            document.getElementById("dateend").setAttribute("min", "2019-11-11");
+            document.getElementById("dateInitial").setAttribute("max", today);
+            document.getElementById("dateend").setAttribute("max", today);
+
+            document.getElementById("cdateInitial").value = "2019-11-10";
+            document.getElementById("cdateend").value = today;
+            document.getElementById("cdateInitial").setAttribute("min", "2019-11-10");
+            document.getElementById("cdateend").setAttribute("min", "2019-11-11");
+            document.getElementById("cdateInitial").setAttribute("max", today);
+            document.getElementById("cdateend").setAttribute("max", today);
+
+            $(document).ready(function () {
+
+                $("#productBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/WarehouseReports/AllProducts",
+                        method: "GET",
+                        success: function (data) {
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+
+                                JsonArray.push(
+                                    {
+                                        ProductID: data[i].PId,
+                                        Name: data[i].Name,
+                                        Price: data[i].Price,
+                                        Type: data[i].Type,
+                                        Category: data[i].Category,
+                                        Description: data[i].Description
+                                    }
+                                );
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'ProductID', displayName: 'PRODUCT ID' },
+                                    { field: 'Name', displayName: 'PRODUCT Name' },
+                                    { field: 'Price', displayName: 'UNIT PRICE' },
+                                    { field: 'Type', displayName: 'TYPE' },
+                                    { field: 'Category', displayName: 'Category' },
+                                    { field: 'Description', displayName: 'DESCRIPTION' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+                });
+
+
+                $("#InventoryBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/WarehouseReports/Inventory",
+                        method: "GET",
+                        success: function (data) {
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+                                JsonArray.push(
+                                    {
+                                        ProductID: data[i].Wproducts.PId,
+                                        Name: data[i].Wproducts.Name,
+                                        Price: data[i].Wproducts.Price,
+                                        Type: data[i].Wproducts.Type,
+                                        Category: data[i].Wproducts.Category,
+                                        Quantity: data[i].WStock.Quantity,
+                                        ShelveNo: data[i].WStock.ShelveNo
+
+                                    }
+                                );
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'ProductID', displayName: 'PRODUCT ID' },
+                                    { field: 'Name', displayName: 'PRODUCT Name' },
+                                    { field: 'Price', displayName: 'UNIT PRICE' },
+                                    { field: 'Type', displayName: 'TYPE' },
+                                    { field: 'Category', displayName: 'Category' },
+                                    { field: 'Quantity', displayName: 'QUANTITY' },
+                                    { field: 'ShelveNo', displayName: 'Shelve No' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+
+                });
+
+
+                $("#InboundBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/WarehouseReports/InboundOrder",
+                        method: "GET",
+                        success: function (data) {
+                            var newId;
+                            var prevId;
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+                                newId = data[i].WarehouseOrderj.OId;
+                                if (newId != prevId) {
+                                    JsonArray.push(
+                                        {
+                                            OID: data[i].WarehouseOrderj.OId,
+                                            PID: data[i].WarehouseOrderj.PId,
+                                            Quantity: data[i].WarehouseOrderj.PQuantity,
+                                            Price: data[i].WarehouseOrderj.TotalPrice,
+                                            Date: data[i].WarehouseOrderj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+
+                                        });
+                                } else {
+                                    JsonArray.push(
+                                        {
+                                            OID: "-",
+                                            PID: data[i].WarehouseOrderj.PId,
+                                            Quantity: data[i].WarehouseOrderj.PQuantity,
+                                            Price: data[i].WarehouseOrderj.TotalPrice,
+                                            Date: data[i].WarehouseOrderj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+
+                                        });
+                                }
+                                prevId = data[i].WarehouseOrderj.OId;
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'OID', displayName: 'ORDER ID' },
+                                    { field: 'PID', displayName: 'PRODUCT ID' },
+                                    { field: 'Quantity', displayName: 'QUANTITY' },
+                                    { field: 'Price', displayName: 'PRICE' },
+                                    { field: 'Date', displayName: 'DATE' },
+                                    { field: 'Sender', displayName: 'SENDER' },
+                                    { field: 'Receiver', displayName: 'RECEIVER' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+
+                });
+
+                $("#OutboundBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/WarehouseReports/OutboundOrder",
+                        method: "GET",
+                        success: function (data) {
+                            var newId;
+                            var prevId;
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+
+                                newId = data[i].WarehouseOrderj.OId;
+                                if (newId != prevId) {
+                                    JsonArray.push(
+                                        {
+                                            OID: data[i].WarehouseOrderj.OId,
+                                            PID: data[i].WarehouseOrderj.PId,
+                                            Quantity: data[i].WarehouseOrderj.PQuantity,
+                                            Price: data[i].WarehouseOrderj.TotalPrice,
+                                            Date: data[i].WarehouseOrderj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+
+                                        });
+                                } else {
+                                    JsonArray.push(
+                                        {
+                                            OID: "-",
+                                            PID: data[i].WarehouseOrderj.PId,
+                                            Quantity: data[i].WarehouseOrderj.PQuantity,
+                                            Price: data[i].WarehouseOrderj.TotalPrice,
+                                            Date: data[i].WarehouseOrderj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+
+                                        });
+                                }
+                                prevId = data[i].WarehouseOrderj.OId;
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'OID', displayName: 'ORDER ID' },
+                                    { field: 'PID', displayName: 'PRODUCT ID' },
+                                    { field: 'Quantity', displayName: 'QUANTITY' },
+                                    { field: 'Price', displayName: 'PRICE' },
+                                    { field: 'Date', displayName: 'DATE' },
+                                    { field: 'Sender', displayName: 'SENDER' },
+                                    { field: 'Receiver', displayName: 'RECEIVER' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+
+                });
+
+
+                $("#AllOrder").on("click", function () {
+                    var StartDate = document.getElementById("dateInitial").value;
+                    var EndDate = document.getElementById("dateend").value;
+                    $.ajax({
+                        url: "/Api/Home/WarehouseReports/AllOrders/" + StartDate + "/" + EndDate,
+                        method: "GET",
+                        success: function (data) {
+                            var newId;
+                            var prevId;
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+                                newId = data[i].WarehouseOrderj.OId;
+                                if (newId != prevId) {
+                                    JsonArray.push(
+                                        {
+                                            OID: data[i].WarehouseOrderj.OId,
+                                            PID: data[i].WarehouseOrderj.PId,
+                                            Quantity: data[i].WarehouseOrderj.PQuantity,
+                                            Price: data[i].WarehouseOrderj.TotalPrice,
+                                            Date: data[i].WarehouseOrderj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+
+                                        });
+                                } else {
+                                    JsonArray.push(
+                                        {
+                                            OID: "-",
+                                            PID: data[i].WarehouseOrderj.PId,
+                                            Quantity: data[i].WarehouseOrderj.PQuantity,
+                                            Price: data[i].WarehouseOrderj.TotalPrice,
+                                            Date: data[i].WarehouseOrderj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+
+                                        });
+                                }
+                                prevId = data[i].WarehouseOrderj.OId;
+                            });
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'OID', displayName: 'ORDER ID' },
+                                    { field: 'PID', displayName: 'PRODUCT ID' },
+                                    { field: 'Quantity', displayName: 'QUANTITY' },
+                                    { field: 'Price', displayName: 'PRICE' },
+                                    { field: 'Date', displayName: 'DATE' },
+                                    { field: 'Sender', displayName: 'SENDER' },
+                                    { field: 'Receiver', displayName: 'RECEIVER' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+
+                });
+
+
+
+                $("#cAllOrder").on("click", function () {
+                    var StartDate = document.getElementById("cdateInitial").value;
+                    var EndDate = document.getElementById("cdateend").value;
+                    $.ajax({
+                        url: "/Api/Home/WarehouseReports/cAllOrders/" + StartDate + "/" + EndDate,
+                        method: "GET",
+                        success: function (data) {
+                            var newId;
+                            var prevId;
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+                                newId = data[i].WarehouseCompletedOrdersj.OId;
+                                if (newId != prevId) {
+                                    JsonArray.push(
+                                        {
+                                            OID: data[i].WarehouseCompletedOrdersj.OId,
+                                            PID: data[i].WarehouseCompletedOrdersj.PId,
+                                            Quantity: data[i].WarehouseCompletedOrdersj.PQuantity,
+                                            Price: data[i].WarehouseCompletedOrdersj.TotalPrice,
+                                            Date: data[i].WarehouseCompletedOrdersj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+                                        });
+                                } else {
+                                    JsonArray.push(
+                                        {
+                                            OID: "-",
+                                            PID: data[i].WarehouseCompletedOrdersj.PId,
+                                            Quantity: data[i].WarehouseCompletedOrdersj.PQuantity,
+                                            Price: data[i].WarehouseCompletedOrdersj.TotalPrice,
+                                            Date: data[i].WarehouseCompletedOrdersj.Date.slice(0, 10),
+                                            Sender: data[i].WarehouseOrderDetailj.Sender,
+                                            Receiver: data[i].WarehouseOrderDetailj.Receiver
+                                        });
+                                }
+                                prevId = data[i].WarehouseCompletedOrdersj.OId;
+                            });
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'OID', displayName: 'ORDER ID' },
+                                    { field: 'PID', displayName: 'PRODUCT ID' },
+                                    { field: 'Quantity', displayName: 'QUANTITY' },
+                                    { field: 'Price', displayName: 'PRICE' },
+                                    { field: 'Date', displayName: 'DATE' },
+                                    { field: 'Sender', displayName: 'SENDER' },
+                                    { field: 'Receiver', displayName: 'RECEIVER' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+
+                });
+
+
+            });
+
+
+
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "dummy";
+            }
+            document.getElementById("one").click();
+            document.getElementById("2").className = "active";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>
+
+

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.ProductionOrder>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>ALL PRODUCTION ORDERS</h2>
+                                <button id="printBtn" onclick="printBtn()" style="position: absolute; right: 35px; top:15px; background: transparent; background-repeat: no-repeat; border: none; outline: none; height: 40px; width: 40px;">
+                                    <img src="~/Content/img/print-icon.png" width="38px" height="38px" />
+                                </button>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="orders">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>TITLE</th>
+                                                <th>START DATE</th>
+                                                <th>EXPECTED DATE</th>
+                                                <th>FINAL PRODUCT</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>TITLE</th>
+                                                <th>START DATE</th>
+                                                <th>EXPECTED DATE</th>
+                                                <th>FINAL PRODUCT</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th>@item.Id</th>
+                                                    <td>@item.Title</td>
+                                                    <td>@item.StartDate</td>
+                                                    <td>@item.ExpectedDate</td>
+                                                    <td>@item.PId</td>
+                                                    <td>@item.Status</td>
+                                                    <td>
+                                                        <button onclick="window.location.href = '/Production/Edit/@item.Id'" type="button" class="btn btn-primary">Edit</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+            });
+
+             for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "";
+            }
+
+            function printBtn() {
+                var JsonArray = [];
+                @foreach (var item in Model)
+                {
+
+                    @:JsonArray.push({ OrderID: '@item.Id', Name: '@item.Title', StartDate: '@item.StartDate', EndDate: '@item.ExpectedDate', PID: '@item.PId', Status: '@item.Status' });
+                }
+                printJS({
+                    header: '<h3 class="PrintHeader">Current Inventory</h3>',
+                    printable: JsonArray,
+                    properties: [
+                        { field: 'OrderID', displayName: 'Order ID' },
+                        { field: 'Name', displayName: 'Title' },
+                        { field: 'StartDate', displayName: 'Start Date' },
+                        { field: 'EndDate', displayName: 'Expected Date' },
+                        { field: 'PID', displayName: 'Final Product' },
+                        { field: 'Status', displayName: 'Status' },
+
+                    ],
+                    type: 'json',
+                    style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                });
+                console.log();
+            }
+
+        </script>
+
+        <script>
+            document.getElementById("1").className = "active";
+            document.getElementById("2").className = "";
+            document.getElementById("3").className = "";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>

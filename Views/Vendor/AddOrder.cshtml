@@ -1,0 +1,100 @@
+﻿@model SupplyChainManagement.Models.VendorOrderDetail
+@{
+    ViewBag.Title = "AddVendor";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+
+                            @using (Html.BeginForm("AddOrder", "Vendor"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    <h4>Add Vendor</h4>
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.VendorId)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.VendorId, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.VendorId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.PId)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PId, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.PId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.PQuantity)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PQuantity, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.PQuantity, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.Price)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 offset-sm-3">
+                                            <button type="button" class="btn btn-secondary" onclick="window.location.href = 'Index'">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Add Order</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+        <script>
+            for (var i = 1; i <= 5; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("5").className = "active";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+

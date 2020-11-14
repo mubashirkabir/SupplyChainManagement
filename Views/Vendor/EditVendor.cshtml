@@ -1,0 +1,135 @@
+﻿@model SupplyChainManagement.Models.VendorDetail
+@{
+    ViewBag.Title = "AddVendor";
+    var Username = Model.UserName;
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+
+                            @using (Html.BeginForm("UpdateVendor", "Vendor"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    <h4>Add Vendor</h4>
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.VId)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.VId, new { @class = "form-control", required = "required", @readonly = "readonly"})
+                                            @Html.ValidationMessageFor(model => model.VId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.Name)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                Enter UserName:
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="uname" id="uname" class="form-control" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                Enter Password:
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="upass" id="upass" class="form-control" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.Email)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.PhoneNumber)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                            <strong>
+                                                @Html.LabelFor(model => model.Address)
+                                            </strong>
+                                        </label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 offset-sm-3">
+                                            <button type="button" class="btn btn-secondary" onclick="window.location.href = 'Index'">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Add Vendor</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+        <script>
+            $(document).ready(function() {
+                $('#uname').val("@Username");
+
+            });
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+

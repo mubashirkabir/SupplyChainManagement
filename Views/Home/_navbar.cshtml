@@ -1,0 +1,83 @@
+﻿<nav class="side-navbar">
+    <!-- Sidebar Header-->
+    <div class="sidebar-header d-flex align-items-center">
+        <div class="avatar"><img src="~/Content/img/dummy-user-img-1.png" alt="..." class="img-fluid rounded-circle"></div>
+        <div class="title">
+            <h1 class="h4"> @Session["fullname"]</h1>
+            <p>Designation</p>
+        </div>
+    </div>
+    <!-- Sidebar Navidation Menus-->
+    <ul class="list-unstyled">
+        <li id="1">
+            <a href="~/Home/Dashboard"> &nbsp;  Dashboard</a>
+        </li>
+        <li>
+            <a id="one" href="#dropdownReports" aria-expanded="false" data-toggle="collapse"><i class="icon-interface-windows"></i>Reports</a>
+            <ul id="dropdownReports" class="collapse list-unstyled ">
+                <li id="2">
+                    <a href="~/Home/WarehouseReports">Warehouse Reports</a>
+                </li>
+                <li id="3">
+                    <a href="~/Home/VendorReports">Vendor Reports</a>
+                </li>
+                <li id="4">
+                    <a href="~/Home/ProductionReports">Production Reports</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="two" href="#dropdownManagement" aria-expanded="false" data-toggle="collapse"><i class="icon-interface-windows"></i>Warehouse Management</a>
+            <ul id="dropdownManagement" class="collapse list-unstyled ">
+                <li id="5">
+                    <a href="~/Home/WarehouseAllProducts">All Products</a>
+                </li>
+                <li id="6">
+                    <a href="~/Home/WarehouseInventory">Inventory</a>
+                </li>
+                <li id="7">
+                    <a href="~/Home/WarehouseOrders">Orders</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="four" href="#dropdownPManagement" aria-expanded="false" data-toggle="collapse"><i class="icon-interface-windows"></i>Production Management</a>
+            <ul id="dropdownPManagement" class="collapse list-unstyled ">
+                <li id="11">
+                    <a href="~/Home/ProductionAllOrders">Production Orders</a>
+                </li>
+                <li id="12">
+                    <a href="~/Home/ProductionAddOrder">Add Production Order</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="five" href="#dropdownVManagement" aria-expanded="false" data-toggle="collapse"><i class="icon-interface-windows"></i>Vendor Management</a>
+            <ul id="dropdownVManagement" class="collapse list-unstyled ">
+                <li id="13">
+                    <a href="~/Home/VendorAll">All Vendor</a>
+                </li>
+                <li id="14">
+                    <a href="~/Home/VendorOrders">Vendor Orders</a>
+                </li>
+                <li id="15">
+                    <a href="~/Home/VendorAddOrder">Add Vendor Order</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="three" href="#dropdownUsers" aria-expanded="false" data-toggle="collapse"><i class="icon-interface-windows"></i>Users Management</a>
+            <ul id="dropdownUsers" class="collapse list-unstyled ">
+                <li id="8">
+                    <a href="~/Home/UserAll">All Users</a>
+                </li>
+                <li id="9">
+                    <a href="~/Home/SearchUser">Update User</a>
+                </li>
+                <li id="10">
+                    <a href="~/Home/UserAdd">Add User</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

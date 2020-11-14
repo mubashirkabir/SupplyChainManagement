@@ -1,0 +1,175 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.EmployeeManagement>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>Employee Details</h2>
+                                <button id="printBtn" onclick="printBtn()" style="position: absolute; top:10px; right: 50px; background: transparent; background-repeat: no-repeat; border: none; outline: none; height: 40px; width: 40px;">
+                                    <img src="~/Content/img/print-icon.png" width="38px" height="38px" />
+                                </button>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="orders">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>Name</th>
+                                                <th>LastName</th>
+                                                <th>Position</th>
+                                                <th>Joining Date</th>
+                                                <th>Address</th>
+                                                <th>Contact</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>Name</th>
+                                                <th>LastName</th>
+                                                <th>Position</th>
+                                                <th>Joining Date</th>
+                                                <th>Address</th>
+                                                <th>Contact</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                            <tr>
+                                                <th>@item.Id</th>
+                                                <td>@item.Name</td>
+                                                <td>@item.LastName</td>
+                                                <td>@item.Position</td>
+                                                <td>@item.JoiningDate</td>
+                                                <td>@item.Address</td>
+                                                <td>@item.Contact</td>
+                                                <td>
+                                                    <button onclick="window.location.href = '/EmployeeManagement/EmployeeEdit/@item.Id'" type="button" class="btn btn-primary" >Edit</button>
+                                                    <button onclick="window.location.href = '/EmployeeManagement/CalculateSalary/@item.Id'"  type="button" class="btn btn-primary">Salary</button>
+                                                    <button data-product-id="@item.Id" type="button" class="btn btn-danger js-delete" type="button" class="btn danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#orders .js-delete").on("click",
+                    function () {
+                        var btnRef = $(this);
+                        var btn = $(this).attr("data-product-id")
+                        bootbox.confirm("Are you sure you want to delete this Employee?",
+                            function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/Api/Productions/" + btn,
+                                        method: "DELETE",
+                                        success: function () {
+                                            btnRef.parents("tr").remove();
+
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                }
+                            });
+                    });
+            });
+
+
+            for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "";
+            }
+
+            function printBtn() {
+                var JsonArray = [];
+                @foreach (var item in Model)
+                {
+
+                    @:JsonArray.push({EmployeeID: '@item.Id', Name: '@item.Name', LastName: '@item.LastName', Position: '@item.Position', Joining: '@item.JoiningDate', Adress: '@item.Address', Contact: '@item.Contact'});
+                }
+                printJS({
+                    header: '<h3 class="PrintHeader">Employee Details</h3>',
+                    printable: JsonArray,
+                    properties: [
+                        { field: 'EmployeeID', displayName: 'Employee ID'},
+                        { field: 'Name', displayName: 'Name'},
+                        { field: 'LastName', displayName: 'Last Name'},
+                        { field: 'Position', displayName: 'Position' },
+                        { field: 'Joining', displayName: 'Joining Date' },
+                        { field: 'Adress', displayName: 'Address'},
+                        { field: 'Contact', displayName: 'ContactNo'}
+                    ],
+                    type: 'json',
+                    style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                });
+                console.log();
+
+            }
+            function printBtn() {
+                var JsonArray = [];
+                @foreach (var item in Model)
+                {
+  
+                    @:JsonArray.push({EmployeeID: '@item.Id', Name: '@item.Name', LastName: '@item.LastName', Position: '@item.Position', Joining: '@item.JoiningDate', Adress: '@item.Address', Contact: '@item.Contact'});
+                }
+                printJS({
+                    header: '<h3 class="PrintHeader">Employee Details</h3>',
+                    printable: JsonArray,
+                    properties: [
+                        { field: 'EmployeeID', displayName: 'Employee ID'},
+                        { field: 'Name', displayName: 'Name'},
+                        { field: 'LastName', displayName: 'Last Name'},
+                        { field: 'Position', displayName: 'Position' },
+                        { field: 'Joining', displayName: 'Joining Date' },
+                        { field: 'Adress', displayName: 'Address'},
+                        { field: 'Contact', displayName: 'ContactNo'}
+                    ],
+                    type: 'json',
+                    style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                });
+                console.log();
+
+            }
+
+            document.getElementById("one").click();
+            document.getElementById("1").className = "active";
+
+        </script>
+        
+        <script>
+            document.getElementById("1").className = "active";
+            document.getElementById("2").className = "";
+            document.getElementById("3").className = "";
+            document.getElementById("4").className = "";
+            document.getElementById("5").className = "";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>

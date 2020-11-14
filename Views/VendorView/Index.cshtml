@@ -1,0 +1,65 @@
+﻿@model List<SupplyChainManagement.Models.VendorOrderDetail>
+@{
+    ViewBag.Title = "VendorOrders";
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>Your Orders: </h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="products">
+                                        <thead>
+                                            <tr>
+                                                <th>ORDER ID</th>
+                                                <th>PRODUCT ID</th>
+                                                <th>QUANTITY</th>
+                                                <th>TOTAL INVOICE</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ORDER ID</th>
+                                                <th>PRODUCT ID</th>
+                                                <th>QUANTITY</th>
+                                                <th>TOTAL INVOICE</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    <td>@item.PId</td>
+                                                    <td>@item.PQuantity</td>
+                                                    <td>@item.Price</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+        <script>
+            document.getElementById("1").className = "active";
+            document.getElementById("2").className = "";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+
+

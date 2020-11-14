@@ -1,0 +1,183 @@
+﻿@model IEnumerable<SupplyChainManagement.ViewModels.WarehouseProductJoin>
+@{
+    ViewBag.Title = "Current Inventory";
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading" style=" display: flex; position: relative; padding: 22px;">
+                                <h2 style="position: absolute; left: 0;">Current Inventory</h2>
+                                <button id="printBtn" onclick="printBtn()" style="position: absolute; right: 35px; background: transparent; background-repeat: no-repeat; border: none; outline: none; height: 40px; width: 40px;">
+                                    <img src="~/Content/img/print-icon.png" width="38px" height="38px" />
+                                </button>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover" id="products">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>TYPE</th>
+                                                <th>CATEGORY</th>
+                                                <th>QUANTITY</th>
+                                                <th>SHELVE #</th>
+                                                <th>DESCRIPTION</th>
+                                                <th>DELETED</th>
+                                                <th>DELETE</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>TYPE</th>
+                                                <th>CATEGORY</th>
+                                                <th>QUANTITY</th>
+                                                <th>SHELVE #</th>
+                                                <th>DESCRIPTION</th>
+                                                <th>DELETED</th>
+                                                <th>DELETE</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                if (@item.WStock.Status == 0)
+                                                {
+                                                    <tr>
+                                                        <th>@item.Wproducts.PId</th>
+                                                        <td>@item.Wproducts.Name</td>
+                                                        <td>@item.Wproducts.Price</td>
+                                                        <td>@item.Wproducts.Type</td>
+                                                        <td>@item.Wproducts.Category</td>
+                                                        <td>@item.WStock.Quantity</td>
+                                                        <td>@item.WStock.ShelveNo</td>
+                                                        <td>@item.Wproducts.Description</td>
+                                                        @if (@item.Wproducts.Status == 1)
+                                                        {
+                                                            <td>
+                                                                <button data-product-id="@item.Wproducts.PId" type="button" class="btn btn-danger js-undelete"> Recover</button>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>Active</td>
+                                                        }
+                                                        <td>
+                                                            <button data-product-id="@item.Wproducts.PId" type="button" class="btn btn-danger js-delete">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#products').dataTable({
+                    aLengthMenu: [
+                        [-1, 10, 25, 75, 100],
+                        ["All", 10, 25, 75, 100]
+                    ],
+                    iDisplayLength: -1
+                });
+
+                $("#products .js-undelete").on("click",
+                    function () {
+                        var btnRef = $(this);
+                        var btn = $(this).attr("data-product-id");
+                        bootbox.confirm("Are you sure you want to recover this deleted product?",
+                            function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/Api/Home/Warehouse/ProductUnDelete/" + btn,
+                                        method: "DELETE",
+                                        success: function () {
+                                           location.reload();
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                }
+                            });
+                    });
+                $("#products .js-delete").on("click",
+                    function () {
+                        var btnRef = $(this);
+                        var btn = $(this).attr("data-product-id");
+                        bootbox.confirm("Are you sure you want to permanently delete this product along with Inventory?",
+                            function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/Api/Home/Warehouse/ProductSDelete/" + btn,
+                                        method: "DELETE",
+                                        success: function () {
+                                            btnRef.parents("tr").remove();
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                }
+                            });
+                    });
+            });
+
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "";
+            }
+
+            function printBtn() {
+                var JsonArray = [];
+                @foreach (var item in Model)
+                {
+
+                    @:JsonArray.push({ ProductID: '@item.Wproducts.PId', Name: '@item.Wproducts.Name', Price: '@item.Wproducts.Price', Type: '@item.Wproducts.Type',Category: '@item.Wproducts.Category', Quantity: '@item.WStock.Quantity', ShelveNo: '@item.WStock.ShelveNo', Description: '@item.Wproducts.Description' });
+                }
+                printJS({
+                    header: '<h3 class="PrintHeader">Current Inventory</h3>',
+                    printable: JsonArray,
+                    properties: [
+                        { field: 'ProductID', displayName: 'Product ID' },
+                        { field: 'Name', displayName: 'Name' },
+                        { field: 'Price', displayName: 'Price' },
+                        { field: 'Type', displayName: 'Type' },
+                        { field: 'Category', displayName: 'Category' },
+                        { field: 'Quantity', displayName: 'Quantity' },
+                        { field: 'ShelveNo', displayName: 'Shelve #' },
+                        { field: 'Description', displayName: 'Description' }
+                    ],
+                    type: 'json',
+                    style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                });
+                console.log();
+
+            }
+            document.getElementById("two").click();
+            document.getElementById("6").className = "active";
+        </script>
+
+
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>

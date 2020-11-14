@@ -1,0 +1,751 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    var NOO = ViewBag.NoOfOrder as string[];
+    var NOCO = ViewBag.NoOfCOrder as string[];
+    var TSoO = ViewBag.TotalSales as string[];
+    var HPI = ViewBag.HotProduct as string[];
+    var HPN = ViewBag.HotProductName as string[];
+    var HPQ = ViewBag.HotProductQuantity as int[];
+
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <!-- WAREHOUSE SECTION-->
+        <section class="dashboard-counts no-padding-bottom">
+            <h1 style="margin-left: 20px;"> Warehouse Section:</h1>
+            <br />
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <div class="col-12" style="margin: auto; width: 95%;">
+                            <div class="line-chart-example card">
+                                <div class="card-close">
+                                    <div class="dropdown">
+                                        <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                        <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                    </div>
+                                </div>
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">Warehouse Total Completed Order & Order placed</h3>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="WarehouseOrderChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="recent-updates card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h3 class="h4">Warehouse Completed Orders</h3>
+                            </div>
+                            <div class="card-body no-padding" id="CompletedOrderNotificationArea">
+
+                            </div>
+                        </div>
+
+                        <div class="recent-updates card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h3 class="h4">Warehouse Orders Pending</h3>
+                            </div>
+                            <div class="card-body no-padding" id="OrderNotificationArea">
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow" x-placement="bottom-end" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">Top 5 Selling Products</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Product ID</th>
+                                                <th>Product Name</th>
+                                                <th>Quantity sold</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < 5; i++)
+                                            {
+                                                if (HPI[i] != null)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@(i + 1)</th>
+                                                        <td>@HPI[i]</td>
+                                                        <td>@HPN[i]</td>
+                                                        <td>@HPQ[i]</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-12">
+                            <div class="bar-chart-example card">
+                                <div class="card-close">
+                                    <div class="dropdown">
+                                        <button type="button" id="closeCard6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                        <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                    </div>
+                                </div>
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">Total Sales from Warehouse</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                    <canvas id="warehouseSales" width="642" height="321" class="chartjs-render-monitor" style="display: block; width: 642px; height: 321px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow" x-placement="bottom-end" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">Low stock products</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="lowStockTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Product ID</th>
+                                                <th>Product Name</th>
+                                                <th>Remaining Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-lg-4" style="margin-top: 20px;">
+                        <button onclick="location.href = '/Home/WarehouseReports';" class="pure-material-button-contained" style="max-width: 350px;"> Warehouse Reports</button>
+                    </div>
+                    <div class="col-lg-4" style="margin-top: 20px;">
+                        <button onclick="location.href = '/Home/WarehouseAllProducts';" class="pure-material-button-contained" style="max-width: 350px;"> Main Warehouse Management</button>
+                    </div>
+                    <div class="col-lg-4" style="margin-top: 20px;">
+
+                        <button onclick="location.href = '/Warehouse/Index';" class="pure-material-button-contained" style="max-width: 350px;"> Warehouse Management</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <section class="dashboard-counts">
+            <br />
+            <div class="container-fluid">
+                <div class="row clearfix">
+
+                    <div class="col-lg-4">
+                        <div class="recent-updates card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h3 class="h4">Vendor Orders</h3>
+                            </div>
+                            <div class="card-body no-padding" id="VendorNotification">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="recent-updates card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h3 class="h4">Production InProgress Orders</h3>
+                            </div>
+                            <div class="card-body no-padding" id="ProductionInProgressNotification">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="recent-updates card">
+                            <div class="card-close">
+                                <div class="dropdown">
+                                    <button type="button" id="closeCard6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                    <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a></div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h3 class="h4">Production Completed Orders</h3>
+                            </div>
+                            <div class="card-body no-padding" id="ProductionCompletedNotification">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-counts">
+            <br />
+            <div class="container-fluid">
+                <div class="row clearfix">
+
+                    <div class="col-lg-3">
+                        <button onclick="location.href = '/Home/VendorReports';" class="pure-material-button-contained" style="width: 350px; height: 150px; margin-top: 60px;"> Vendor Reports</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button onclick="location.href = '/Vendor/Index';" class="pure-material-button-contained" style="width: 350px; height: 150px; margin-top: 60px;"> Vendor Management</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button onclick="location.href = '/Home/ProductionReports';" class="pure-material-button-contained" style="width: 350px; height: 150px; margin-top: 60px;"> Production Reports</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button onclick="location.href = '/Production/Index';" class="pure-material-button-contained" style="width: 350px; height: 150px; margin-top: 60px;"> Production Management</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+
+                $(document).ready(function() {
+                    var CompletedOrderList = new Array;
+                    var WOrderList = new Array;
+                    var WOrderUList = new Array;
+                    var VOrderList = new Array;
+                    var PIOrderList = new Array;
+                    var PCOrderList = new Array;
+                    setTimeout(function() {
+                            window.setInterval(function() {
+                                    $.ajax({
+                                        url: "/Api/Home/WarehouseNotification/CompletedOrders",
+                                        method: "Get",
+                                        success: function(data) {
+                                            var newId;
+                                            var prevId;
+                                            var CheckIfInserted = false;
+                                            $.each(data,
+                                                function(index) {
+                                                    newId = data[index].OId;
+                                                    if (newId != prevId) {
+                                                        for (var i = 0; i < CompletedOrderList.length; i++) {
+                                                            if (newId == CompletedOrderList[i]) {
+                                                                CheckIfInserted = true;
+                                                            }
+                                                        }
+                                                        if (CheckIfInserted == false) {
+                                                            $('#CompletedOrderNotificationArea').prepend(
+                                                                '<div class="item d-flex justify-content-between" id="WCO' +
+                                                                data[index].OId +
+                                                                '"+>' +
+                                                                '<div class="info d-flex"><div class="title">' +
+                                                                '<h5>Order # ' +
+                                                                data[i].OId +
+                                                                ' was completed</h5>' +
+                                                                '</div></div>' +
+                                                                '<div class="date text-right" id="imageCWO">' +
+                                                                '<button class="removeNotification" data-order-id="' +
+                                                                data[index].OId +
+                                                                '" style="padding: 0; border: none; background: none; color: red;  font-size: 20px; padding: 5px;"> X</button>' +
+                                                                '</div></div>');
+                                                            prevId = data[index].OId;
+                                                            CompletedOrderList.push(data[index].OId);
+                                                        }
+                                                    } else {
+                                                    }
+                                                });
+                                        },
+                                        error: function(xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                    $("#imageCWO .removeNotification").on("click",
+                                        function() {
+                                            var btnRef = $(this);
+                                            var value = $(this).attr("data-order-id");
+                                            var divId = "WCO" + value;
+                                            $.ajax({
+                                                url: "/Api/Home/WarehouseNotification/CompletedOrders/" + value,
+                                                method: "DELETE",
+                                                success: function() {
+                                                    $("#" + divId + "").remove();
+                                                },
+                                                error: function(xhr) {
+                                                    console.log(xhr);
+                                                }
+                                            });
+
+                                        });
+                                }, 1000);
+
+                            window.setInterval(function() {
+                                    $.ajax({
+                                        url: "/Api/Home/WarehouseNotification/CompletedWOrders",
+                                        method: "Get",
+                                        success: function(datao) {
+                                            var OnewId;
+                                            var OprevId;
+                                            var OCheckIfInserted = false;
+                                            var OCheckIfInsertedU = false;
+
+                                            $.each(datao,
+                                                function(index) {
+                                                    OnewId = datao[index].OId;
+                                                    var ifUpdated = datao[index].Notification;
+                                                    if (ifUpdated == 2) {
+                                                        for (var i = 0; i < WOrderUList.length; i++) {
+                                                            if (OnewId == WOrderUList[i]) {
+                                                                OCheckIfInsertedU = true;
+                                                            }
+                                                        }
+                                                        if (OCheckIfInsertedU == false) {
+                                                            $('#OrderNotificationArea').prepend(
+                                                                '<div class="item d-flex justify-content-between" id="WO' +
+                                                                datao[index].OId +
+                                                                '"+>' +
+                                                                '<div class="info d-flex"><div class="title">' +
+                                                                '<h5>Order # ' +
+                                                                datao[index].OId +
+                                                                ' was Updated</h5>' +
+                                                                '</div></div>' +
+                                                                '<div class="date text-right" id="imageWO">' +
+                                                                '<button class="removeNotification" data-order-id="' +
+                                                                datao[index].OId +
+                                                                '" style="padding: 0; border: none; background: none; color: red;  font-size: 20px; padding: 5px;"> X</button>' +
+                                                                '</div></div>');
+                                                            WOrderUList.push(datao[index].OId);
+
+                                                        }
+                                                    } else {
+                                                        if (OnewId != OprevId) {
+                                                            for (var i = 0; i < WOrderList.length; i++) {
+                                                                if (OnewId == WOrderList[i]) {
+                                                                    OCheckIfInserted = true;
+                                                                }
+                                                            }
+                                                            if (OCheckIfInserted == false) {
+                                                                $('#OrderNotificationArea').prepend(
+                                                                    '<div class="item d-flex justify-content-between" id="WO' +
+                                                                    datao[index].OId +
+                                                                    '"+>' +
+                                                                    '<div class="info d-flex"><div class="title">' +
+                                                                    '<h5>Order # ' +
+                                                                    datao[index].OId +
+                                                                    ' was placed</h5>' +
+                                                                    '</div></div>' +
+                                                                    '<div class="date text-right" id="imageWO">' +
+                                                                    '<button class="removeNotification" data-order-id="' +
+                                                                    datao[index].OId +
+                                                                    '" style="padding: 0; border: none; background: none; color: red;  font-size: 20px; padding: 5px;"> X</button>' +
+                                                                    '</div></div>');
+                                                                OprevId = datao[index].OId;
+                                                                WOrderList.push(datao[index].OId);
+                                                            }
+                                                        } else {
+                                                        }
+                                                    }
+                                                    OCheckIfInserted = false;
+                                                    OCheckIfInsertedU = false;
+                                                });
+                                        },
+                                        error: function(xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                    $("#imageWO .removeNotification").on("click",
+                                        function() {
+                                            var btnRef = $(this);
+                                            var value = $(this).attr("data-order-id");
+                                            var divId = "WO" + value;
+                                            $.ajax({
+                                                url: "/Api/Home/WarehouseNotification/CompletedWOrders/" + value,
+                                                method: "DELETE",
+                                                success: function() {
+                                                    $("#" + divId + "").remove();
+                                                },
+                                                error: function(xhr) {
+                                                    console.log(xhr);
+                                                }
+                                            });
+
+                                        });
+                            }, 2000);
+
+                            window.setInterval(function() {
+                                    $.ajax({
+                                        url: "/Api/Home/VendorNotification/Orders",
+                                        method: "Get",
+                                        success: function(data) {
+                                            var newId;
+                                            var prevId;
+                                            var CheckIfInserted = false;
+                                            $.each(data,
+                                                function(index) {
+                                                    newId = data[index].VendorOrderDetail.Id;
+                                                    if (newId != prevId) {
+                                                        for (var i = 0; i < VOrderList.length; i++) {
+                                                            if (newId == VOrderList[i]) {
+                                                                CheckIfInserted = true;
+                                                            }
+                                                        }
+                                                        if (CheckIfInserted == false) {
+                                                            $('#VendorNotification').prepend(
+                                                                '<div class="item d-flex justify-content-between" id="VO'+
+                                                                data[index].VendorOrderDetail.Id +
+                                                                '"+>' +
+                                                                '<div class="info d-flex"><div class="title">' +
+                                                                '<h5>Order # ' +
+                                                                data[index].VendorOrderDetail.Id +
+                                                                ' was placed. <br/> Vendor Name: '+ data[index].VendorDetail.Name + '</h5>' +
+                                                                '</div></div>' +
+                                                                '<div class="date text-right" id="imageVO">' +
+                                                                '<button class="removeNotification" data-order-id="' +
+                                                                data[index].VendorOrderDetail.Id +
+                                                                '" style="padding: 0; border: none; background: none; color: red;  font-size: 20px; padding: 5px;"> X</button>' +
+                                                                '</div></div>');
+                                                            prevId = data[index].VendorOrderDetail.Id;
+                                                            VOrderList.push(data[index].VendorOrderDetail.Id);
+                                                        }
+                                                    } else {}
+                                                });
+                                        },
+                                        error: function(xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                            }, 3000);
+
+                            window.setInterval(function () {
+                                    $.ajax({
+                                        url: "/Api/Home/ProductionNotification/POrders",
+                                        method: "Get",
+                                        success: function(data) {
+                                            var newId;
+                                            var prevId;
+                                            var CheckIfInserted = false;
+                                            $.each(data,
+                                                function(index) {
+                                                    newId = data[index].Id;
+                                                    if (newId != prevId) {
+                                                        for (var i = 0; i < PIOrderList.length; i++) {
+                                                            if (newId == PIOrderList[i]) {
+                                                                CheckIfInserted = true;
+                                                            }
+                                                        }
+                                                        if (CheckIfInserted == false) {
+                                                            $('#ProductionInProgressNotification').prepend(
+                                                                '<div class="item d-flex justify-content-between" id="PIO'+
+                                                                data[index].Id +
+                                                                '"+>' +
+                                                                '<div class="info d-flex"><div class="title">' +
+                                                                '<h5>Order # ' +
+                                                                data[index].Id +
+                                                                ' is InProgress.</h5>' +
+                                                                '</div></div>' +
+                                                                '<div class="date text-right" id="imageVO">' +
+                                                                '<button class="removeNotification" data-order-id="' +
+                                                                data[index].Id +
+                                                                '" style="padding: 0; border: none; background: none; color: red;  font-size: 20px; padding: 5px;"> X</button>' +
+                                                                '</div></div>');
+                                                            prevId = data[index].Id;
+                                                            PIOrderList.push(data[index].Id);
+                                                        }
+                                                    } else {}
+                                                });
+                                        },
+                                        error: function(xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                            }, 3000);
+
+                            window.setInterval(function () {
+                                    $.ajax({
+                                        url: "/Api/Home/ProductionNotification/PCOrders",
+                                        method: "Get",
+                                        success: function(data) {
+                                            var newId;
+                                            var prevId;
+                                            var CheckIfInserted = false;
+                                            $.each(data,
+                                                function(index) {
+                                                    newId = data[index].Id;
+                                                    if (newId != prevId) {
+                                                        for (var i = 0; i < PCOrderList.length; i++) {
+                                                            if (newId == PCOrderList[i]) {
+                                                                CheckIfInserted = true;
+                                                            }
+                                                        }
+                                                        if (CheckIfInserted == false) {
+                                                            $('#ProductionCompletedNotification').prepend(
+                                                                '<div class="item d-flex justify-content-between" id="PIO'+
+                                                                data[index].Id +
+                                                                '"+>' +
+                                                                '<div class="info d-flex"><div class="title">' +
+                                                                '<h5>Order # ' +
+                                                                data[index].Id +
+                                                                ' is completed.</h5>' +
+                                                                '</div></div>' +
+                                                                '<div class="date text-right" id="imageVO">' +
+                                                                '<button class="removeNotification" data-order-id="' +
+                                                                data[index].Id +
+                                                                '" style="padding: 0; border: none; background: none; color: red;  font-size: 20px; padding: 5px;"> X</button>' +
+                                                                '</div></div>');
+                                                            prevId = data[index].Id;
+                                                            PCOrderList.push(data[index].Id);
+                                                        }
+                                                    } else {}
+                                                });
+                                        },
+                                        error: function(xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                            }, 3000);
+                            $.ajax({
+                                        url: "/Api/Home/WarehouseNotification/LowStockWarning",
+                                        method: "Get",
+                                        success: function(data) {
+                                            $.each(data,
+                                                function (index) {
+                                                    $("#lowStockTable tbody").append("<tr> <td> " + data[index].Wproducts.PId + "</td> <td> " +data[index].Wproducts.Name+ "</td> <td>" + data[index].WStock.Quantity+ "</td></tr>");
+                                                });
+                                        },
+                                        error: function(xhr) {
+                                           
+                                        }
+                                    });
+                         
+                                   
+                               
+                            }, 1000);
+
+
+                    //charts
+
+                    var ctx1 = $("canvas").get(0).getContext("2d");
+                    var gradient1 = ctx1.createLinearGradient(150, 0, 150, 300);
+                    gradient1.addColorStop(0, 'rgba(133, 180, 242, 0.91)');
+                    gradient1.addColorStop(1, 'rgba(255, 119, 119, 0.94)');
+
+                    var gradient2 = ctx1.createLinearGradient(146.000, 0.000, 154.000, 300.000);
+                    gradient2.addColorStop(0, 'rgba(104, 179, 112, 0.85)');
+                    gradient2.addColorStop(1, 'rgba(76, 162, 205, 0.85)');
+
+                    var WOLineChart = $('#WarehouseOrderChart');
+                    var WOLineCharts = new Chart(WOLineChart,
+                        {
+                            type: 'line',
+                            options: {
+                                legend: { labels: { fontColor: "#777", fontSize: 12 } },
+                                scales: {
+                                    xAxes: [
+                                        {
+                                            display: true,
+                                            gridLines: {
+                                                color: '#eee'
+                                            }
+                                        }
+                                    ],
+                                    yAxes: [
+                                        {
+                                            display: true,
+                                            gridLines: {
+                                                color: '#eee'
+                                            }
+                                        }
+                                    ]
+                                },
+                            },
+                            data: {
+                                labels: [
+                                    "Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                ],
+                                datasets: [
+                                    {
+                                        label: "Total Order Placed",
+                                        fill: true,
+                                        lineTension: 0.3,
+                                        backgroundColor: gradient1,
+                                        borderColor: gradient1,
+                                        borderCapStyle: 'butt',
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        borderJoinStyle: 'miter',
+                                        borderWidth: 1,
+                                        pointBorderColor: gradient1,
+                                        pointBackgroundColor: "#fff",
+                                        pointBorderWidth: 1,
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: gradient1,
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointHoverBorderWidth: 2,
+                                        pointRadius: 1,
+                                        pointHitRadius: 10,
+                                        data: [@NOO[0], @NOO[1], @NOO[2], @NOO[3], @NOO[4], @NOO[5], @NOO[6], @NOO[7],
+                                            @NOO[8], @NOO[9], @NOO[10], @NOO[11]
+                                        ],
+                                        spanGaps: false
+                                    },
+                                    {
+                                        label: "Total Orders Completed",
+                                        fill: true,
+                                        lineTension: 0.3,
+                                        backgroundColor: gradient2,
+                                        borderColor: gradient2,
+                                        borderCapStyle: 'butt',
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        borderJoinStyle: 'miter',
+                                        borderWidth: 1,
+                                        pointBorderColor: gradient2,
+                                        pointBackgroundColor: "#fff",
+                                        pointBorderWidth: 1,
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: gradient2,
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointHoverBorderWidth: 2,
+                                        pointRadius: 1,
+                                        pointHitRadius: 10,
+                                        data: [@NOCO[0], @NOCO[1], @NOCO[2], @NOCO[3], @NOCO[4], @NOCO[5], @NOCO[6],
+                                            @NOCO[7], @NOCO[8], @NOCO[9], @NOCO[10], @NOCO[11]
+                                        ],
+                                        spanGaps: false
+                                    }
+                                ]
+                            }
+                        });
+                    var warehouseSalesBarChart = $('#warehouseSales');
+                    var warehouseSalesBarCharts = new Chart(warehouseSalesBarChart,
+                        {
+                            type: 'bar',
+                            options: {
+                                scales: {
+                                    xAxes: [
+                                        {
+                                            display: true,
+                                            gridLines: {
+                                                color: '#eee'
+                                            }
+                                        }
+                                    ],
+                                    yAxes: [
+                                        {
+                                            display: true,
+                                            gridLines: {
+                                                color: '#eee'
+                                            }
+                                        }
+                                    ]
+                                },
+                            },
+                            data: {
+                                labels: [
+                                    "Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                ],
+                                datasets: [
+                                    {
+                                        label: "Order from sales",
+                                        backgroundColor: [
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2
+                                        ],
+                                        hoverBackgroundColor: [
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2
+                                        ],
+                                        borderColor: [
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2,
+                                            gradient2
+                                        ],
+                                        borderWidth: 1,
+                                        data: [@TSoO[0], @TSoO[1], @TSoO[2], @TSoO[3], @TSoO[4], @TSoO[5], @TSoO[6],
+                                            @TSoO[7], @TSoO[8], @TSoO[9], @TSoO[10], @TSoO[11]
+                                        ],
+                                    }
+                                ]
+                            }
+                        });
+
+                });
+
+
+                for (var i = 1; i <= 14; i++) {
+                    document.getElementById(i).className = "";
+                }
+                document.getElementById("1").className = "active";
+        </script>
+        <script src="~/Content/js/Charts/Chart.bundle.js"></script>
+        @Html.Partial("_footer")
+    </div>
+</div>

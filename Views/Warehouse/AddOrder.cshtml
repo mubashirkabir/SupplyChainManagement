@@ -1,0 +1,275 @@
+﻿@model SupplyChainManagement.ViewModels.WarehouseOrderJoin
+
+@{
+    ViewBag.Title = "AddOrder";
+    string hour = DateTime.Now.ToString("HH", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+    string min = DateTime.Now.ToString("mm", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+    string month = DateTime.Now.ToString("MM", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+    string year = DateTime.Now.ToString("yy", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+    string OID = "OW" + hour + min + month + year;
+    string date = DateTime.Now.ToString("yy-MM-dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 90%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card">
+                                @using (Html.BeginForm("AddOrder", "Warehouse", FormMethod.Post,
+                                    new { id = "OrderForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+                                        <h4>ADD WAREHOUSE ORDER</h4>
+                                        <hr />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WarehouseOrderDetailj.OrderID)
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="OrderID" maxlength="6" value=@OID required="required" readonly="readonly" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    <label> Add Product ID and Quantity:</label>
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <table class="table table-bordered" id="dynamic_field">
+                                                    <tr>
+                                                        <td><input type="text" name="PID[0]" id="PID[0]" class="PID" /></td>
+                                                        <td><input type="number" name="PQ[0]" min="1" value="1" class="quantityTxt" id="PQ[0]" /></td>
+                                                        <td><label class="labelfortext"> </label></td>
+                                                        <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WarehouseOrderj.Date)
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input type="date" name="date" id="dateO" required="required" class="form-control" readonly="readonly" />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WarehouseOrderTypej.type)
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <select name="OrderType" id="OrderType" class="form-control" required="required">
+                                                    <option disabled selected value> -- select an option -- </option>
+                                                    <option value="1">Receiving</option>
+                                                    <option value="2">Sending</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WarehouseOrderDetailj.Sender)
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <select name="OrderSender" id="OrderSender" class="form-control" required="required">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                <strong>
+                                                    @Html.LabelFor(model => model.WarehouseOrderDetailj.Receiver)
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <select name="OrderReciever" id="OrderReciever" class="form-control" required="required">
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <input type="number" name="length" hidden="hidden" id="length" />
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 offset-sm-3">
+                                                <button type="button" class="btn btn-secondary" onclick="window.location.href = 'Orders'">Cancel</button>
+                                                <button type="submit" class="btn btn-primary">Add Product</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+
+        <script type="text/javascript">
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                dd='0'+dd
+            }
+            if(mm<10){
+                mm='0'+mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("dateO").value = today;
+
+            $(document).ready(function () {
+                var i = 0;
+                $('#length').val(i);
+                $('#add').click(function () {
+                    i++;
+                    $('#dynamic_field').append('<tr  id="row' + i + '">' +
+                        '<td><input type="text" name="PID[' + i + ']" id="PID[' + i + ']"/></td>' +
+                        '<td><input type="number" name="PQ[' + i + ']" min="1" value="1" class="quantityTxt" id="PQ[' + i + ']"/></td>' +
+                        '<td><label class="labelfortext"> enter product & quantity </label></td>' +
+                        '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+                    $('#length').val(i);
+                });
+
+                $(document).on('change', '.quantityTxt', function () {
+                    var productname = $(this).closest('td').prev('td').find("input").val();
+                    var quantity = this.value;
+                    var label = $(this).closest('td').next('td').find('label');
+                    $.ajax({
+                        url: "/Api/QuantityCheck/" + productname + "/" + quantity,
+                        type: "Get",
+                        success: function (data) {
+                            console.log(data);
+                            label.text(data);
+                        },
+                        error: function (xhr) {
+                            console.log("Error");
+                        }
+
+                    });
+                });
+
+                $(document).on('click', '.btn_remove', function () {
+                    var button_id = $(this).attr("id");
+                    $('#row' + button_id + '').remove();
+                    i--;
+                    $('#length').val(i);
+                });
+
+                $('#OrderForm').on('submit', function(e){
+
+                    myWindow = window.open('', '', 'width=1000 ,height=1500');
+                    myWindow.document.write("<style>table { border-collapse: collapse;  margin-left:auto; margin-right:auto;} table, td, th {border: 1px solid black;  padding: 10px;} </style>");
+                    myWindow.document.write("<font size='60' face='Calibri' > <table>");
+                    myWindow.document.write("<tr> <th>Order ID </th> <td> @OID </td> </tr>");
+                    myWindow.document.write("<tr> <th>Order date </th> <td> @date </td> </tr>");
+                    if ($('#OrderType').val() == 1) {
+                        myWindow.document.write("<tr> <th>Order type </th> <td> Inbound </td> </tr>");
+                    }
+                    else if($('#OrderType').val() == 2) {
+                        myWindow.document.write("<tr> <th>Order type </th> <td> Outbound </td> </tr>");
+                    }
+                    myWindow.document.write("<tr> <th>Order Sender </th> <td>" + $('#OrderSender').val() + " </td> </tr>");
+                    myWindow.document.write("<tr> <th>Order Reciever </th> <td>" + $('#OrderReciever').val() + " </td> </tr>");
+                    myWindow.document.write("<tr> <th colspan='2'>Products </th> </tr>");
+                    myWindow.document.write("<tr> <th>Product ID</th> <th>Quantity</th> </tr>");
+                    for (var count = 0; count <= i; count++)
+                    {
+                        myWindow.document.write("<tr> <td>" + document.getElementById("PID[" + count + "]").value + "</td> <td>" + document.getElementById("PQ[" + count + "]").value + "</td></tr>");
+                    }
+                    myWindow.document.write("</table> </font>");
+                    myWindow.document.close();
+                    myWindow.focus();
+                    myWindow.print();
+
+                });
+
+
+
+                $("#PIDtxtbox").keyup(function () {
+                    if ($("#suggesstion-box").val() == "") {
+                        $("#suggesstion-box").html("");
+                    }
+                    $("#suggesstion-box").html("");
+
+                    $.ajax({
+                        url: "/Api/ProductSuggestion/" + $("#PIDtxtbox").val(),
+                        type: "Get",
+                        success: function (data) {
+                            $("#suggesstion-box").show();
+                            $.each(data, function (index) {
+                                console.log(data[index])
+                                $("#suggesstion-box").append("<p onclick = setValue('"+data[index].PId+"')> PID: "+ data[index].PId + " Name: "+ data[index].Name + "</p>");
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("Error");
+                        }
+
+                    });
+                });
+
+            });
+            $('.quantityTxt').keyup(function () {
+                var pn = $(this).closest('td').prev('td').find("input").val();
+                console.log(pn);
+            });
+
+            for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("two").click();
+            document.getElementById("7").className = "active";
+            $('#OrderType').on('change', function () {
+                if (this.value == "2") {
+                    $('#OrderSender').find('option').remove();
+                    $('#OrderReciever').find('option').remove();
+                    $('#OrderSender').append("<option value='WAREHOUSE' selected>WAREHOUSE</option>");
+                    $('#OrderReciever').append("<option value='SALES' selected>SALES</option>");
+                    $('#OrderReciever').append("<option value='VENDOR'>VENDOR</option>");
+                    $('#OrderReciever').append("<option value='PRODUCTION'>PRODUCTION</option>");
+
+                }
+                else if (this.value == "1") {
+                    $('#OrderSender').find('option').remove();
+                    $('#OrderReciever').find('option').remove();
+                    $('#OrderReciever').append("<option value='WAREHOUSE' selected>WAREHOUSE</option>");
+                    $('#OrderSender').append("<option value='SALES' selected >SALES</option>");
+                    $('#OrderSender').append("<option value='VENDOR'>VENDOR</option>");
+                    $('#OrderSender').append("<option value='PRODUCTION'>PRODUCTION</option>");
+                }
+            });
+
+        </script>
+
+        @Html.Partial("_footer")
+    </div>
+</div>

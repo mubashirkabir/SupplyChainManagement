@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Production Reports";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="tables">
+            <div class="container-fluid">
+                <center>
+                    <h1 style="font-family: sans-serif; font-size: 35px; color: #212529;"> Production Reports</h1>
+                    <br />
+                </center>
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="col-12" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="ProductionBtn">
+                                    All Production Orders
+                                </button>
+                                <center>
+                                    <label>Print list of all Production Orders</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            //Date Setting
+
+
+
+
+            $(document).ready(function () {
+
+                $("#ProductionBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/ProductionReports/AllProductionOrder",
+                        method: "GET",
+                        success: function (data) {
+                            var JsonArray = [];
+                            var prevId;
+                            var newID;
+                            $.each(data, function (i) {
+                                newID = data[i].productionOrder.Id;
+                                if (prevId != newID) {
+                                    JsonArray.push(
+                                        {
+                                            OrderID: data[i].productionOrder.Id,
+                                            PID: data[i].productionOrder.PId,
+                                            Title: data[i].productionOrder.Title,
+                                            StartDate: data[i].productionOrder.StartDate,
+                                            ExpectedDate: data[i].productionOrder.ExpectedDate,
+                                            PIDR: data[i].productionRawMaterial.PId,
+                                            PQR: data[i].productionRawMaterial.Quantity,
+                                            Progress: data[i].productionOrder.Status
+                                        });
+                                } else {
+                                    JsonArray.push(
+                                        {
+                                            OrderID: "-",
+                                            PID: "-",
+                                            Title: "-",
+                                            StartDate: "-",
+                                            ExpectedDate: "-",
+                                            PIDR: data[i].productionRawMaterial.PId,
+                                            PQR: data[i].productionRawMaterial.Quantity,
+                                            Progress: "-"
+                                        });
+                                }
+                                prevId = data[i].productionOrder.Id;
+
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'OrderID', displayName: 'ID' },
+                                    { field: 'PID', displayName: 'FINAL PRODUCT' },
+                                    { field: 'Title', displayName: 'TITLE' },
+                                    { field: 'StartDate', displayName: 'Start Date' },
+                                    { field: 'ExpectedDate', displayName: 'Ex. Date' },
+                                    { field: 'PIDR', displayName: 'Required Raw ID' },
+                                    { field: 'PQR', displayName: 'Raw Quantity' },
+                                    { field: 'Progress', displayName: 'Order Status' },
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+                });
+            });
+
+
+
+            for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "dummy";
+            }
+            document.getElementById("one").click();
+            document.getElementById("4").className = "active";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>
+
+

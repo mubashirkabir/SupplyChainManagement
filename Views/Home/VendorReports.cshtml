@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "Vendor Reports";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="tables">
+            <div class="container-fluid">
+                <center>
+                    <h1 style="font-family: sans-serif; font-size: 35px; color: #212529;"> Vendor Reports</h1>
+                    <br />
+                </center>
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="col-12" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="VendorBtn">
+                                    All Vendor
+                                </button>
+                                <center>
+                                    <label>Print list of all Vendor registered</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-6">
+                        <div class="col-12" style="margin: auto; width: 80%;">
+                            <div class="card" style="padding: 25px;">
+                                <button class="pure-material-button-contained" id="VOBtn">
+                                    Vendor's Orders
+                                </button>
+                                <center>
+                                    <label>Print List of Orders w.r.t vendor</label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            //Date Setting
+
+
+
+
+            $(document).ready(function () {
+
+                $("#VendorBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/VendorReports/AllVendors",
+                        method: "GET",
+                        success: function (data) {
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+
+                                JsonArray.push(
+                                    {
+                                        VendorID: data[i].VId,
+                                        Name: data[i].Name,
+                                        Email: data[i].Email,
+                                        PhoneNumber: data[i].PhoneNumber,
+                                        Address: data[i].Address
+                                    }
+                                );
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'VendorID', displayName: 'ID' },
+                                    { field: 'Name', displayName: 'VENDOR Name' },
+                                    { field: 'Email', displayName: 'EMAIL' },
+                                    { field: 'PhoneNumber', displayName: 'PHONE NUMBER' },
+                                    { field: 'Address', displayName: 'ADDRESS' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+                });
+
+
+                $("#VOBtn").on("click", function () {
+
+                    $.ajax({
+                        url: "/Api/Home/VendorReports/AllVendorsOrders",
+                        method: "GET",
+                        success: function (data) {
+                            var JsonArray = [];
+                            $.each(data, function (i) {
+                                JsonArray.push(
+                                    {
+                                        OID: data[i].VendorOrderDetail.Id,
+                                        PID: data[i].VendorOrderDetail.PId,
+                                        PQuantity: data[i].VendorOrderDetail.PQuantity,
+                                        Price: data[i].VendorOrderDetail.Price,
+                                        Name: data[i].VendorDetail.Name,
+                                        Email: data[i].VendorDetail.Email,
+                                        PhoneNumber: data[i].VendorDetail.PhoneNumber,
+
+                                    }
+                                );
+                            });
+
+                            printJS({
+                                header: '<h3 class="PrintHeader">Product List</h3>',
+                                printable: JsonArray,
+                                properties: [
+                                    { field: 'OID', displayName: 'ORDER ID' },
+                                    { field: 'PID', displayName: 'PRODUCT' },
+                                    { field: 'PQuantity', displayName: 'QUANTITY' },
+                                    { field: 'Price', displayName: 'PRICE' },
+                                    { field: 'Name', displayName: 'VENDOR Name' },
+                                    { field: 'Email', displayName: 'EMAIL' },
+                                    { field: 'PhoneNumber', displayName: 'PHONE NUMBER' }
+                                ],
+                                type: 'json',
+                                style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                            });
+                            JsonArray = [];
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr);
+                        }
+                    });
+
+                });
+
+
+            });
+
+
+
+            for (var i = 1; i <= 14; i++) {
+                document.getElementById(i).className = "dummy";
+            }
+            document.getElementById("one").click();
+            document.getElementById("3").className = "active";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>
+
+
