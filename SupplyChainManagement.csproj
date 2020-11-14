@@ -1,0 +1,875 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5ABE7B53-9051-4AE6-B065-65F9F35FA5DE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SupplyChainManagement</RootNamespace>
+    <AssemblyName>SupplyChainManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44370</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SendGrid, Version=9.12.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.12.0\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\HomeController.cs" />
+    <Compile Include="Controllers\Api\ProductionsController.cs" />
+    <Compile Include="Controllers\Api\VendorsController.cs" />
+    <Compile Include="Controllers\Api\WarehousesController.cs" />
+    <Compile Include="Controllers\EmployeeManagement.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductionController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Controllers\VendorViewController.cs" />
+    <Compile Include="Controllers\WarehouseController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171953078_InitialMigration.cs" />
+    <Compile Include="Migrations\201909171953078_InitialMigration.Designer.cs">
+      <DependentUpon>201909171953078_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909180744014_warehouseorderupdate.cs" />
+    <Compile Include="Migrations\201909180744014_warehouseorderupdate.designer.cs">
+      <DependentUpon>201909180744014_warehouseorderupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909221118262_updatedLength.cs" />
+    <Compile Include="Migrations\201909221118262_updatedLength.Designer.cs">
+      <DependentUpon>201909221118262_updatedLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909272014599_orderQuantityRange.cs" />
+    <Compile Include="Migrations\201909272014599_orderQuantityRange.Designer.cs">
+      <DependentUpon>201909272014599_orderQuantityRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909272103128_WarehouseOrderDateAnnotation.cs" />
+    <Compile Include="Migrations\201909272103128_WarehouseOrderDateAnnotation.Designer.cs">
+      <DependentUpon>201909272103128_WarehouseOrderDateAnnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909272208226_AddingUserRoles.cs" />
+    <Compile Include="Migrations\201909272208226_AddingUserRoles.Designer.cs">
+      <DependentUpon>201909272208226_AddingUserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909281856316_AddingWVRequestModel.cs" />
+    <Compile Include="Migrations\201909281856316_AddingWVRequestModel.Designer.cs">
+      <DependentUpon>201909281856316_AddingWVRequestModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909291126434_PRMupdated.cs" />
+    <Compile Include="Migrations\201909291126434_PRMupdated.Designer.cs">
+      <DependentUpon>201909291126434_PRMupdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909291151460_PRMQuantityUpdated.cs" />
+    <Compile Include="Migrations\201909291151460_PRMQuantityUpdated.Designer.cs">
+      <DependentUpon>201909291151460_PRMQuantityUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909292200437_lengthOIDto6.cs" />
+    <Compile Include="Migrations\201909292200437_lengthOIDto6.Designer.cs">
+      <DependentUpon>201909292200437_lengthOIDto6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911112052176_WarehouseProductStatus.cs" />
+    <Compile Include="Migrations\201911112052176_WarehouseProductStatus.Designer.cs">
+      <DependentUpon>201911112052176_WarehouseProductStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911172018550_OrderLengthIncrease.cs" />
+    <Compile Include="Migrations\201911172018550_OrderLengthIncrease.Designer.cs">
+      <DependentUpon>201911172018550_OrderLengthIncrease.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911172201542_WarehouseUpdate.cs" />
+    <Compile Include="Migrations\201911172201542_WarehouseUpdate.Designer.cs">
+      <DependentUpon>201911172201542_WarehouseUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911252018307_WarehouseOrderStatus.cs" />
+    <Compile Include="Migrations\201911252018307_WarehouseOrderStatus.Designer.cs">
+      <DependentUpon>201911252018307_WarehouseOrderStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911291546432_DateToWarehouseOrders.cs" />
+    <Compile Include="Migrations\201911291546432_DateToWarehouseOrders.Designer.cs">
+      <DependentUpon>201911291546432_DateToWarehouseOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911291851192_WarehouseCompletedOrder.cs" />
+    <Compile Include="Migrations\201911291851192_WarehouseCompletedOrder.Designer.cs">
+      <DependentUpon>201911291851192_WarehouseCompletedOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911291926585_OrderDateSet.cs" />
+    <Compile Include="Migrations\201911291926585_OrderDateSet.Designer.cs">
+      <DependentUpon>201911291926585_OrderDateSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911292043504_WarehouseCompletedOrderModify.cs" />
+    <Compile Include="Migrations\201911292043504_WarehouseCompletedOrderModify.Designer.cs">
+      <DependentUpon>201911292043504_WarehouseCompletedOrderModify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911301155038_WarehouseCompletedOrderNotification.cs" />
+    <Compile Include="Migrations\201911301155038_WarehouseCompletedOrderNotification.Designer.cs">
+      <DependentUpon>201911301155038_WarehouseCompletedOrderNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911302132080_WarehouseOrderNotification.cs" />
+    <Compile Include="Migrations\201911302132080_WarehouseOrderNotification.Designer.cs">
+      <DependentUpon>201911302132080_WarehouseOrderNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912010847570_WarehouseProductCategory.cs" />
+    <Compile Include="Migrations\201912010847570_WarehouseProductCategory.Designer.cs">
+      <DependentUpon>201912010847570_WarehouseProductCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912011730561_PVNotificationAdd.cs" />
+    <Compile Include="Migrations\201912011730561_PVNotificationAdd.Designer.cs">
+      <DependentUpon>201912011730561_PVNotificationAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912012102099_UserRolesForVandE.cs" />
+    <Compile Include="Migrations\201912012102099_UserRolesForVandE.Designer.cs">
+      <DependentUpon>201912012102099_UserRolesForVandE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912012113224_UsernameInVendor.cs" />
+    <Compile Include="Migrations\201912012113224_UsernameInVendor.Designer.cs">
+      <DependentUpon>201912012113224_UsernameInVendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912012200063_UserDetailCompositeIssue.cs" />
+    <Compile Include="Migrations\201912012200063_UserDetailCompositeIssue.Designer.cs">
+      <DependentUpon>201912012200063_UserDetailCompositeIssue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912012221127_UserDetailPrimaryIssue.cs" />
+    <Compile Include="Migrations\201912012221127_UserDetailPrimaryIssue.Designer.cs">
+      <DependentUpon>201912012221127_UserDetailPrimaryIssue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912012335111_EmployeeModels.cs" />
+    <Compile Include="Migrations\201912012335111_EmployeeModels.Designer.cs">
+      <DependentUpon>201912012335111_EmployeeModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912020020286_VOIDLength.cs" />
+    <Compile Include="Migrations\201912020020286_VOIDLength.Designer.cs">
+      <DependentUpon>201912020020286_VOIDLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912041906017_ProductionProductQuantity.cs" />
+    <Compile Include="Migrations\201912041906017_ProductionProductQuantity.Designer.cs">
+      <DependentUpon>201912041906017_ProductionProductQuantity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EmployeeManagement.cs" />
+    <Compile Include="Models\EmployeeSalary.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProductionOrder.cs" />
+    <Compile Include="Models\ProductionRawMaterial.cs" />
+    <Compile Include="Models\UserRoles.cs" />
+    <Compile Include="Models\UsersDetail.cs" />
+    <Compile Include="Models\VendorDetail.cs" />
+    <Compile Include="Models\VendorOrder.cs" />
+    <Compile Include="Models\VendorOrderDetail.cs" />
+    <Compile Include="Models\WarehouseCompletedOrders.cs" />
+    <Compile Include="Models\WarehouseOrder.cs" />
+    <Compile Include="Models\WarehouseOrderDetail.cs" />
+    <Compile Include="Models\WarehouseOrderType.cs" />
+    <Compile Include="Models\WarehouseProduct.cs" />
+    <Compile Include="Models\WarehouseStock.cs" />
+    <Compile Include="Models\WarehouseVendorRequest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\EmployeeAdd.cs" />
+    <Compile Include="ViewModels\ProductionAddOrder.cs" />
+    <Compile Include="ViewModels\UserLogin.cs" />
+    <Compile Include="ViewModels\VendorOrderViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseCompletedOrderJoin.cs" />
+    <Compile Include="ViewModels\WarehouseOrderJoin.cs" />
+    <Compile Include="ViewModels\WarehouseProductJoin.cs" />
+    <Compile Include="ViewModels\WarehouseReports.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\aspnet-SupplyChainManagement-20190912121730.mdf" />
+    <Content Include="App_Data\aspnet-SupplyChainManagement-20190912121730_log.ldf">
+      <DependentUpon>aspnet-SupplyChainManagement-20190912121730.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\Login-Form-Clean.css" />
+    <Content Include="Content\css\print.min.css" />
+    <Content Include="Content\img\Home\icon-dashboard.png" />
+    <Content Include="Content\img\Home\icon-navigate.png" />
+    <Content Include="Content\img\Home\icon-remove-notification.png" />
+    <Content Include="Content\img\Home\icon-report.png" />
+    <Content Include="Content\img\Home\icon-users.png" />
+    <Content Include="Content\js\print.min.js" />
+    <Content Include="Content\css\style.default.css" />
+    <Content Include="Content\css\style.default.min.css" />
+    <Content Include="Content\fonts\dashboard.svg" />
+    <Content Include="Content\icons-reference\fonts\dashboard.svg" />
+    <Content Include="Content\icons-reference\icons-reference.html" />
+    <Content Include="Content\icons-reference\styles.css" />
+    <Content Include="Content\img\bg.jpg" />
+    <Content Include="Content\img\dummy-user-img-1.png" />
+    <Content Include="Content\img\office-interior-logo-only.png" />
+    <Content Include="Content\img\office-interior.png" />
+    <Content Include="Content\img\print-icon.png" />
+    <Content Include="Content\img\Warehouse\icon_inventory.png" />
+    <Content Include="Content\img\Warehouse\icon_order.png" />
+    <Content Include="Content\img\Warehouse\icon_vorder.png" />
+    <Content Include="Content\js\charts-custom.js" />
+    <Content Include="Content\js\charts-home.js" />
+    <Content Include="Content\js\Charts\Chart.bundle.js" />
+    <Content Include="Content\js\Charts\chartjs.js" />
+    <Content Include="Content\js\front.js" />
+    <Content Include="Content\js\Tables\buttons.bootstrap4.min.js" />
+    <Content Include="Content\js\Tables\buttons.colVis.min.js" />
+    <Content Include="Content\js\Tables\buttons.flash.min.js" />
+    <Content Include="Content\js\Tables\buttons.html5.min.js" />
+    <Content Include="Content\js\Tables\buttons.print.min.js" />
+    <Content Include="Content\js\Tables\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\js\Tables\dataTables.buttons.min.js" />
+    <Content Include="Content\js\Tables\datatablescripts.bundle.js" />
+    <Content Include="Content\js\Tables\jquery-datatable.js" />
+    <Content Include="Content\js\Tables\vendorscripts.bundle.js" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\vendor\chart.js\Chart.bundle.js" />
+    <Content Include="Content\vendor\chart.js\Chart.bundle.min.js" />
+    <Content Include="Content\vendor\chart.js\Chart.js" />
+    <Content Include="Content\vendor\chart.js\Chart.min.js" />
+    <Content Include="Content\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\vendor\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\vendor\jquery-validation\additional-methods.js" />
+    <Content Include="Content\vendor\jquery-validation\additional-methods.min.js" />
+    <Content Include="Content\vendor\jquery-validation\jquery.validate.js" />
+    <Content Include="Content\vendor\jquery-validation\jquery.validate.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ar.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ar.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_az.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_az.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_bg.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_bg.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_bn_BD.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_bn_BD.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ca.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ca.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_cs.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_cs.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_da.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_da.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_de.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_de.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_el.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_el.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_es.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_es.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_es_AR.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_es_AR.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_es_PE.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_es_PE.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_et.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_et.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_eu.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_eu.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_fa.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_fa.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_fi.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_fi.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_fr.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_fr.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ge.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ge.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_gl.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_gl.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_he.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_he.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_hr.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_hr.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_hu.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_hu.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_hy_AM.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_hy_AM.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_id.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_id.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_is.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_is.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_it.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_it.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ja.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ja.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ka.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ka.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_kk.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_kk.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ko.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ko.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_lt.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_lt.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_lv.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_lv.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_mk.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_mk.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_my.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_my.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_nl.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_nl.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_no.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_no.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_pl.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_pl.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_pt_BR.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_pt_BR.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_pt_PT.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_pt_PT.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ro.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ro.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ru.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ru.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sd.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sd.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_si.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_si.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sk.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sk.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sl.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sl.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sr.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sr.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sr_lat.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sr_lat.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sv.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_sv.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_th.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_th.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_tj.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_tj.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_tr.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_tr.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_uk.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_uk.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ur.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_ur.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_vi.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_vi.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_zh.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_zh.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_zh_TW.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\messages_zh_TW.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_de.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_de.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_es_CL.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_es_CL.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_fi.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_fi.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_it.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_it.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_nl.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_nl.min.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_pt.js" />
+    <Content Include="Content\vendor\jquery-validation\localization\methods_pt.min.js" />
+    <Content Include="Content\vendor\jquery.cookie\jquery.cookie.js" />
+    <Content Include="Content\vendor\jquery.cookie\MIT-LICENSE.txt" />
+    <Content Include="Content\vendor\jquery\core.js" />
+    <Content Include="Content\vendor\jquery\jquery.js" />
+    <Content Include="Content\vendor\jquery\jquery.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Content\vendor\popper.js\esm\popper-utils.js" />
+    <Content Include="Content\vendor\popper.js\esm\popper-utils.min.js" />
+    <Content Include="Content\vendor\popper.js\esm\popper.js" />
+    <Content Include="Content\vendor\popper.js\esm\popper.min.js" />
+    <Content Include="Content\vendor\popper.js\popper-utils.js" />
+    <Content Include="Content\vendor\popper.js\popper-utils.min.js" />
+    <Content Include="Content\vendor\popper.js\popper.js" />
+    <Content Include="Content\vendor\popper.js\popper.min.js" />
+    <Content Include="Content\vendor\popper.js\umd\popper-utils.js" />
+    <Content Include="Content\vendor\popper.js\umd\popper-utils.min.js" />
+    <Content Include="Content\vendor\popper.js\umd\popper.js" />
+    <Content Include="Content\vendor\popper.js\umd\popper.min.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\fonts\dashboard.eot" />
+    <Content Include="Content\fonts\dashboard.ttf" />
+    <Content Include="Content\fonts\dashboard.woff" />
+    <Content Include="Content\icons-reference\fonts\dashboard.eot" />
+    <Content Include="Content\icons-reference\fonts\dashboard.ttf" />
+    <Content Include="Content\icons-reference\fonts\dashboard.woff" />
+    <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\vendor\jquery.cookie\component.json" />
+    <Content Include="Content\vendor\jquery.cookie\cookie.jquery.json" />
+    <Content Include="Content\vendor\popper.js\umd\poppper.js.flow" />
+    <Content Include=".editorconfig" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Warehouse\BoundOut.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Vendor\_footer.cshtml" />
+    <Content Include="Views\Vendor\_header.cshtml" />
+    <Content Include="Views\Vendor\_navbar.cshtml" />
+    <Content Include="Views\Warehouse\_footer.cshtml" />
+    <Content Include="Views\Warehouse\_header.cshtml" />
+    <Content Include="Views\Warehouse\_navbar.cshtml" />
+    <Content Include="Views\Warehouse\Orders.cshtml" />
+    <Content Include="Views\Warehouse\BoundIn.cshtml" />
+    <Content Include="Views\Warehouse\Index.cshtml" />
+    <Content Include="Views\Warehouse\AllProducts.cshtml" />
+    <Content Include="Views\Warehouse\AddProduct.cshtml" />
+    <Content Include="Views\Warehouse\SearchProduct.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Warehouse\Edit.cshtml" />
+    <Content Include="Views\Warehouse\AddOrder.cshtml" />
+    <Content Include="Views\Home\UserAdd.cshtml" />
+    <Content Include="Views\Home\_footer.cshtml" />
+    <Content Include="Views\Home\_header.cshtml" />
+    <Content Include="Views\Home\_navbar.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Warehouse\EditOrder.cshtml" />
+    <Content Include="Views\Warehouse\WVendor.cshtml" />
+    <Content Include="Views\Warehouse\AddVendorOrder.cshtml" />
+    <Content Include="Views\Warehouse\EditVOrder.cshtml" />
+    <Content Include="Views\Production\Index.cshtml" />
+    <Content Include="Views\Production\_footer.cshtml" />
+    <Content Include="Views\Production\_header.cshtml" />
+    <Content Include="Views\Production\addOrder.cshtml" />
+    <Content Include="Views\Production\Edit.cshtml" />
+    <Content Include="Views\Vendor\Index.cshtml" />
+    <Content Include="Views\Vendor\VendorOrders.cshtml" />
+    <Content Include="Views\Vendor\AddVendor.cshtml" />
+    <Content Include="Views\Vendor\EditVendor.cshtml" />
+    <Content Include="Views\Vendor\WarehouseOrder.cshtml" />
+    <Content Include="Views\Production\_navbar.cshtml" />
+    <Content Include="Views\Production\CompleteOrders.cshtml" />
+    <Content Include="Views\Production\InProgressOrders.cshtml" />
+    <Content Include="Views\Warehouse\OrderError.cshtml" />
+    <Content Include="Views\Warehouse\PrintOrderReceipt.cshtml" />
+    <Content Include="Views\Warehouse\OrderReceipt.cshtml" />
+    <Content Include="Views\Home\UserAll.cshtml" />
+    <Content Include="Views\Home\UserEdit.cshtml" />
+    <Content Include="Views\Home\SearchUser.cshtml" />
+    <Content Include="Views\Home\WarehouseReports.cshtml" />
+    <Content Include="Views\Home\VendorReports.cshtml" />
+    <Content Include="Views\Home\ProductionReports.cshtml" />
+    <Content Include="Views\Home\WarehouseAllProducts.cshtml" />
+    <Content Include="Views\Home\WarehouseInventory.cshtml" />
+    <Content Include="Views\Home\WarehouseOrders.cshtml" />
+    <Content Include="Views\Vendor\SendMail.cshtml" />
+    <Content Include="Views\Home\ProductionAddOrder.cshtml" />
+    <Content Include="Views\Home\ProductionAllOrders.cshtml" />
+    <Content Include="Views\VendorView\Index.cshtml" />
+    <Content Include="Views\VendorView\_footer.cshtml" />
+    <Content Include="Views\VendorView\_navbar.cshtml" />
+    <Content Include="Views\VendorView\MyDetail.cshtml" />
+    <Content Include="Views\VendorView\_header.cshtml" />
+    <Content Include="Views\EmployeeManagement\AddEmployee.cshtml" />
+    <Content Include="Views\EmployeeManagement\CalculateSalary.cshtml" />
+    <Content Include="Views\EmployeeManagement\CurrentOrders.cshtml" />
+    <Content Include="Views\EmployeeManagement\EmployeeEdit.cshtml" />
+    <Content Include="Views\EmployeeManagement\Index.cshtml" />
+    <Content Include="Views\EmployeeManagement\SalaryDetail.cshtml" />
+    <Content Include="Views\EmployeeManagement\_footer.cshtml" />
+    <Content Include="Views\EmployeeManagement\_header.cshtml" />
+    <Content Include="Views\EmployeeManagement\_navbar.cshtml" />
+    <Content Include="Views\Vendor\AddOrder.cshtml" />
+    <Content Include="Views\Home\VendorAll.cshtml" />
+    <Content Include="Views\Home\VendorOrders.cshtml" />
+    <Content Include="Views\Warehouse\CompletedOrders.cshtml" />
+    <Content Include="Views\Home\VendorAddOrder.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\vendor\font-awesome\less\" />
+    <Folder Include="Content\vendor\font-awesome\scss\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909171953078_InitialMigration.resx">
+      <DependentUpon>201909171953078_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909180744014_warehouseorderupdate.resx">
+      <DependentUpon>201909180744014_warehouseorderupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909221118262_updatedLength.resx">
+      <DependentUpon>201909221118262_updatedLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909272014599_orderQuantityRange.resx">
+      <DependentUpon>201909272014599_orderQuantityRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909272103128_WarehouseOrderDateAnnotation.resx">
+      <DependentUpon>201909272103128_WarehouseOrderDateAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909272208226_AddingUserRoles.resx">
+      <DependentUpon>201909272208226_AddingUserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909281856316_AddingWVRequestModel.resx">
+      <DependentUpon>201909281856316_AddingWVRequestModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909291126434_PRMupdated.resx">
+      <DependentUpon>201909291126434_PRMupdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909291151460_PRMQuantityUpdated.resx">
+      <DependentUpon>201909291151460_PRMQuantityUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909292200437_lengthOIDto6.resx">
+      <DependentUpon>201909292200437_lengthOIDto6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911112052176_WarehouseProductStatus.resx">
+      <DependentUpon>201911112052176_WarehouseProductStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911172018550_OrderLengthIncrease.resx">
+      <DependentUpon>201911172018550_OrderLengthIncrease.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911172201542_WarehouseUpdate.resx">
+      <DependentUpon>201911172201542_WarehouseUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911252018307_WarehouseOrderStatus.resx">
+      <DependentUpon>201911252018307_WarehouseOrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911291546432_DateToWarehouseOrders.resx">
+      <DependentUpon>201911291546432_DateToWarehouseOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911291851192_WarehouseCompletedOrder.resx">
+      <DependentUpon>201911291851192_WarehouseCompletedOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911291926585_OrderDateSet.resx">
+      <DependentUpon>201911291926585_OrderDateSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911292043504_WarehouseCompletedOrderModify.resx">
+      <DependentUpon>201911292043504_WarehouseCompletedOrderModify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911301155038_WarehouseCompletedOrderNotification.resx">
+      <DependentUpon>201911301155038_WarehouseCompletedOrderNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911302132080_WarehouseOrderNotification.resx">
+      <DependentUpon>201911302132080_WarehouseOrderNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912010847570_WarehouseProductCategory.resx">
+      <DependentUpon>201912010847570_WarehouseProductCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912011730561_PVNotificationAdd.resx">
+      <DependentUpon>201912011730561_PVNotificationAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912012102099_UserRolesForVandE.resx">
+      <DependentUpon>201912012102099_UserRolesForVandE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912012113224_UsernameInVendor.resx">
+      <DependentUpon>201912012113224_UsernameInVendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912012200063_UserDetailCompositeIssue.resx">
+      <DependentUpon>201912012200063_UserDetailCompositeIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912012221127_UserDetailPrimaryIssue.resx">
+      <DependentUpon>201912012221127_UserDetailPrimaryIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912012335111_EmployeeModels.resx">
+      <DependentUpon>201912012335111_EmployeeModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912020020286_VOIDLength.resx">
+      <DependentUpon>201912020020286_VOIDLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912041906017_ProductionProductQuantity.resx">
+      <DependentUpon>201912041906017_ProductionProductQuantity.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51823</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44370/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
