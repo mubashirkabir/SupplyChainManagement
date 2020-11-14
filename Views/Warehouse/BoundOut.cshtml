@@ -1,0 +1,116 @@
+﻿@model List<SupplyChainManagement.ViewModels.WarehouseOrderJoin>
+@{
+    ViewBag.Title = "Orders";
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading">
+                                <h2>RECEIVING WAREHOUSE ORDERS</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover" id="products">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>PRODUCT ID</th>
+                                                <th>QUANTITY</th>
+                                                <th>PRICE</th>
+                                                <th>DATE</th>
+                                                <th>TYPE</th>
+                                                <th>SENDER</th>
+                                                <th>RECEIVER</th>
+                                                <th>Edit/Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>PRODUCT ID</th>
+                                                <th>QUANTITY</th>
+                                                <th>PRICE</th>
+                                                <th>DATE</th>
+                                                <th>TYPE</th>
+                                                <th>SENDER</th>
+                                                <th>RECEIVER</th>
+                                                <th>Edit/Delete</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                if (item.WarehouseOrderTypej.Status == 0)
+                                                {
+                                                    <tr>
+                                                        <th>@item.WarehouseOrderj.OId</th>
+                                                        <td>@item.WarehouseOrderj.PId</td>
+                                                        <td>@item.WarehouseOrderj.PQuantity</td>
+                                                        <td>@item.WarehouseOrderj.TotalPrice</td>
+                                                        <td>@item.WarehouseOrderj.Date</td>
+                                                        <td>OutBound</td>
+                                                        <td>@item.WarehouseOrderDetailj.Sender</td>
+                                                        <td>@item.WarehouseOrderDetailj.Receiver</td>
+                                                        <td>
+                                                            <button onclick="window.location.href = '/Warehouse/editorder/@item.WarehouseOrderj.OId'" type="button" class="btn btn-primary">Edit</button>
+                                                            <button data-product-id="@item.WarehouseOrderj.OId" type="button" class="btn btn-danger js-delete">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @Html.Partial("_footer")
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#products').dataTable({
+            aLengthMenu: [
+                [-1, 10, 25, 75, 100],
+                ["All", 10, 25, 75, 100]
+            ],
+            iDisplayLength: -1
+        });
+        $(".js-delete").on("click",
+            function () {
+                var btnRef = $(this);
+                var btn = $(this).attr("data-product-id");
+                bootbox.confirm("Are you sure you want to delete this product?",
+                    function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/Api/WarehousesOrder/" + btn,
+                                method: "DELETE",
+                                success: function () {
+                                    location.reload();
+                                },
+                                error: function (xhr) {
+                                    console.log(xhr);
+                                }
+                            });
+                        }
+                    });
+            });
+    });
+
+    for (var i = 1; i <= 10; i++) {
+        document.getElementById(i).className = "";
+    }
+    document.getElementById("two").click();
+    document.getElementById("5").className = "active";
+</script>
+

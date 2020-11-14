@@ -1,0 +1,212 @@
+﻿@model SupplyChainManagement.ViewModels.WarehouseOrderJoin
+
+@{
+    ViewBag.Title = "AddOrder";
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "InBound",
+        Value = "1"
+    });
+
+    listItems.Add(new SelectListItem
+    {
+        Text = "OutBound",
+        Value = "2"
+    });
+    var type = Model.WarehouseOrderTypej.type;
+    var WOsNo = Model.WarehouseOrderj.SNo;
+    var WODsNo = Model.WarehouseOrderDetailj.SNo;
+
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 90%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card">
+                                @if (Model == null)
+                                {
+                                    <h1>No Order Selected</h1>
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("Updateorder", "Warehouse"))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+                                            <h4>ADD WAREHOUSE ORDER</h4>
+                                            <hr />
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderDetailj.OrderID)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    @Html.TextBoxFor(model => model.WarehouseOrderDetailj.OrderID, new { @class = "form-control", required = "required", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(model => model.WarehouseOrderDetailj.OrderID, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderj.PId)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    @Html.TextBoxFor(model => model.WarehouseOrderj.PId, new { @class = "form-control", required = "required" , id = "PIDtxtbox" })
+                                                    <div id="suggesstion-box" style="overflow: auto; background: white; position: absolute; z-index: 99;"> </div>
+                                                    @Html.ValidationMessageFor(model => model.WarehouseOrderj.PId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderj.PQuantity)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    @Html.TextBoxFor(model => model.WarehouseOrderj.PQuantity, new { type = "number", @class = "form-control", min = 0, required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.WarehouseOrderj.PQuantity, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderj.Date)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    @Html.TextBoxFor(model => model.WarehouseOrderj.Date, new { @readonly = "readonly", @class = "form-control", id = "startdate" })
+                                                    @Html.ValidationMessageFor(model => model.WarehouseOrderj.Date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderTypej.type)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    @Html.DropDownListFor(model => model.WarehouseOrderTypej.type, listItems, "Select order type", new { @class = "form-control", id = "type" })
+                                                    @Html.ValidationMessageFor(model => model.WarehouseOrderTypej.type, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderDetailj.Sender)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <select name="OrderSender" id="OrderSender" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label" style="font-size: 18px">
+                                                    <strong>
+                                                        @Html.LabelFor(model => model.WarehouseOrderDetailj.Receiver)
+                                                    </strong>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <select name="OrderReciever" id="OrderReciever" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <input hidden="hiddden" value=@WOsNo type="text" name="WOsNo" id="WOsNo" />
+                                            <input hidden="hiddden" value=@WODsNo type="text" name="WODsNo" id="WODsNo" />
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 offset-sm-3">
+                                                    <button type="submit" class="btn btn-primary">Update Order</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#suggesstion-box").css("display", "none");
+                $("#PIDtxtbox").keyup(function () {
+                    if ($("#suggesstion-box").val() == "") {
+                        $("#suggesstion-box").html("");
+                    }
+                    $("#suggesstion-box").html("");
+
+                    $.ajax({
+                        url: "/Api/ProductSuggestion/" + $("#PIDtxtbox").val(),
+                        type: "Get",
+                        success: function (data) {
+                            $("#suggesstion-box").show();
+                            $.each(data, function (index) {
+                                console.log(data[index])
+                                $("#suggesstion-box").append("<p onclick = setValue('"+data[index].PId+"')> PID: "+ data[index].PId + " Name: "+ data[index].Name + "</p>");
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("Error");
+                        }
+
+                    });
+                });
+
+            });
+            function setValue(id) {
+                document.getElementById("PIDtxtbox").value = id;
+                document.getElementById("suggesstion-box").innerHTML = "";
+                document.getElementById("suggesstion-box").hide = true;
+
+            }
+
+            $('#type').on('change', function () {
+                if (this.value == "2") {
+                    $('#OrderSender').find('option').remove();
+                    $('#OrderReciever').find('option').remove();
+                    $('#OrderSender').append("<option value='WAREHOUSE' selected>WAREHOUSE</option>");
+                    $('#OrderReciever').append("<option value='SALES' selected>SALES</option>");
+                    $('#OrderReciever').append("<option value='VENDOR'>VENDOR</option>");
+                    $('#OrderReciever').append("<option value='PRODUCTION'>PRODUCTION</option>");
+
+                }
+                else if (this.value == "1") {
+                    $('#OrderSender').find('option').remove();
+                    $('#OrderReciever').find('option').remove();
+                    $('#OrderReciever').append("<option value='WAREHOUSE' selected>WAREHOUSE</option>");
+                    $('#OrderSender').append("<option value='SALES' selected >SALES</option>");
+                    $('#OrderSender').append("<option value='VENDOR'>VENDOR</option>");
+                    $('#OrderSender').append("<option value='PRODUCTION'>PRODUCTION</option>");
+                }
+            });
+
+            $(function () {
+                $('#startdate').datepicker();
+            });
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>

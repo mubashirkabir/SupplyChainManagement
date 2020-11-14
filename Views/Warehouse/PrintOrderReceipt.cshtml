@@ -1,0 +1,87 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.WarehouseOrder>
+@{
+    ViewBag.Title = "Order Receipt";
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 70%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-xl-10 col-sm-10">
+                            <div class="TableHeading">
+                                <h2>Search Order:</h2>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" list="browsers" id="searchbox" class="form-control" placeholder="Search Product" style="min-width: 80%; margin-left: 10%; margin-right: 10%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="dashboard-counts no-padding-bottom" style="padding-top:10px !important" id="searchSection">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 70%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-xl-10 col-sm-10">
+                            <div style="min-width: 80%; margin-left: 10%; margin-right: 10%;" id="searchback">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+
+
+
+        &nbsp;
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#searchSection").css("display", "none");
+                $("#searchbox").keyup(function () {
+                    if ($("#searchbox").val() == "") {
+                        $("#searchback").html("");
+                    }
+                    $("#searchback").html("");
+                    $("#searchSection").css("display", "block");
+                    var prevId = 0;
+                    var newId = 0;
+                    $.ajax({
+                        url: "/Api/SearchOrder/" + $("#searchbox").val(),
+                        type: "Get",
+                        success: function (data) {
+                            $.each(data, function (index) {
+                                newId = data[index].OId;
+                                if (newId != prevId) {
+                                    prevId = data[index].OId;
+                                    $("#searchback")
+                                        .append("<a href='/Warehouse/OrderReceipt/" + data[index].OId + "'><p>Order ID: " + data[index].OId + " &nbsp; | &nbsp; Date: " + data[index].Date + "</p></a><br />");
+                                }
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("Error");
+                        }
+
+                    });
+                });
+            });
+
+            for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("two").click();
+            document.getElementById("8").className = "active";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+

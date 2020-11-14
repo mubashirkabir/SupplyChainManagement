@@ -1,0 +1,149 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.WarehouseProduct>
+@{
+    ViewBag.Title = "All Products";
+}
+
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="dashboard-counts">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="TableHeading" style=" display: flex; position: relative; padding: 22px;">
+                                <h2 style="position: absolute; left: 0;">ALL WAREHOUSE PRODUCT </h2>
+                                <button id="printBtn" onclick="printBtn()" style="position: absolute; right: 35px; background: transparent; background-repeat: no-repeat; border: none; outline: none; height: 40px; width: 40px;">
+                                    <img src="~/Content/img/print-icon.png" width="38px" height="38px" />
+                                </button>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover" id="products">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>CATEGORY</th>
+                                                <th>SUB-CATEGORY</th>
+                                                <th>DESCRIPTION</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>CATEGORY</th>
+                                                <th>SUB-CATEGORY</th>
+                                                <th>DESCRIPTION</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            if (@item.Status == 0)
+                                            {
+                                                <tr>
+                                                    <th>@item.PId</th>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Price</td>
+                                                    <td>@item.Type</td>
+                                                    <td>@item.Category</td>
+                                                    <td>@item.Description</td>
+                                                    <td>
+                                                        <button onclick="window.location.href = '/Warehouse/Edit/@item.PId'" type="button" class="btn btn-primary">Edit</button>
+                                                        <button data-product-id="@item.PId" type="button" class="btn btn-danger js-delete">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#products').dataTable({
+                    aLengthMenu: [
+                        [-1, 10, 25, 75, 100],
+                        ["All", 10, 25, 75, 100]
+                    ],
+                    iDisplayLength: -1
+                });
+
+                $("#products .js-delete").on("click",
+                    function () {
+                        var btnRef = $(this);
+                        var btn = $(this).attr("data-product-id");
+                        bootbox.confirm("Are you sure you want to delete this product?",
+                            function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/Api/Warehouses/" + btn,
+                                        method: "DELETE",
+                                        success: function () {
+                                            btnRef.parents("tr").remove();
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    });
+                                }
+                            });
+                    });
+
+            });
+            for (var i = 1; i <= 11; i++) {
+                document.getElementById(i).className = "";
+            }
+
+            function printBtn() {
+                var JsonArray = [];
+                @foreach (var item in Model)
+                {
+                    
+                    @:JsonArray.push({ProductID: '@item.PId', Name: '@item.Name', Price: '@item.Price', Type: '@item.Type', Category: '@item.Category', Description: '@item.Description'});
+                }
+                printJS({
+                    header: '<h3 class="PrintHeader">All Warehouse Products</h3>',
+                    printable: JsonArray,
+                    properties: [
+                        { field: 'ProductID', displayName: 'Product ID'},
+                        { field: 'Name', displayName: 'Name'},
+                        { field: 'Price', displayName: 'Price'},
+                        { field: 'Type', displayName: 'Category'},
+                        { field: 'Category', displayName: 'Sub-Category'},
+                        { field: 'Description', displayName: 'Description'}
+                    ],
+                    type: 'json',
+                    style: '.PrintHeader { font-size: 30px; font-family: sans-serif;}'
+
+                });
+
+            }
+
+
+
+
+
+            document.getElementById("one").click();
+            document.getElementById("11").className = "active";
+        </script>
+        <br />
+        <br />
+        @Html.Partial("_footer")
+    </div>
+</div>
+
+

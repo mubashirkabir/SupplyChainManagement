@@ -1,0 +1,67 @@
+﻿<nav class="side-navbar">
+    <!-- Sidebar Header-->
+    <div class="sidebar-header d-flex align-items-center">
+        <div class="avatar"><img src="~/Content/img/dummy-user-img-1.png" alt="..." class="img-fluid rounded-circle"></div>
+        <div class="title">
+            <h1 class="h4"> @Session["fullname"]</h1>
+            <p>Warehouse Admin</p>
+        </div>
+    </div>
+    <!-- Sidebar Navidation Menus-->
+    <ul class="list-unstyled">
+        <li>
+            <a id="one" href="#dropdownProduct" aria-expanded="false" data-toggle="collapse"><img src="~/Content/img/Warehouse/icon_inventory.png" width="30px" height="30px"></img> <i class="icon-interface-windows"></i>Products & Inventory</a>
+            <ul id="dropdownProduct" class="collapse list-unstyled ">
+                <li id="1">
+                    <a href="~/Warehouse">Current Inventory</a>
+                </li>
+                <li id="11">
+                    <a href="~/Warehouse/AllProducts">All Products</a>
+                </li>
+                <li id="2">
+                    <a href="~/Warehouse/AddProduct">Add Product</a>
+                </li>
+                <li id="3">
+                    <a href="~/Warehouse/SearchProduct">Update Product</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a id="two" href="#dropdownOrder" aria-expanded="false" data-toggle="collapse"><img src="~/Content/img/Warehouse/icon_order.png" width="30px" height="30px"></img> <i class="icon-interface-windows"></i>Orders</a>
+            <ul id="dropdownOrder" class="collapse list-unstyled">
+                <li id="4">
+                    <a href="~/Warehouse/Orders">All Order</a>
+                </li>
+                <li id="12">
+                    <a href="~/Warehouse/CompletedOrders">Completed Orders</a>
+                </li>
+
+                <li id="5">
+                    <a href="~/Warehouse/BoundOut">Sending Orders</a>
+                </li>
+                <li id="6">
+                    <a href="~/Warehouse/BoundIn">Receiving Orders</a>
+                </li>
+                <li id="7">
+                    <a href="~/Warehouse/AddOrder">Add Order</a>
+                </li>
+                <li id="8">
+                    <a href="~/Warehouse/PrintOrderReceipt">Order Receipt</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a id="three" href="#dropdownOrderRequest" aria-expanded="false" data-toggle="collapse"><img src="~/Content/img/Warehouse/icon_vorder.png" width="30px" height="30px"></img> <i class="icon-interface-windows"></i>Order Request</a>
+            <ul id="dropdownOrderRequest" class="collapse list-unstyled ">
+                <li  id="9">
+                    <a href="~/Warehouse/WVendor">All Order</a>
+                </li>
+                <li  id="10">
+                    <a href="~/Warehouse/AddVendorOrder">Add Vendor Order</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

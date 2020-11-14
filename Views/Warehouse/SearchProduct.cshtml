@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SupplyChainManagement.Models.WarehouseProduct>
+@{
+    ViewBag.Title = "SearchProduct";
+}
+<div class="page-content d-flex align-items-stretch">
+    @Html.Partial("_navbar")
+    <div class="content-inner">
+        @Html.Partial("_header")
+
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 70%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-xl-10 col-sm-10">
+                            <div class="TableHeading">
+                                <h2>Search Product</h2>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="text" list="browsers" id="searchbox" class="form-control" placeholder="Search Order" style="min-width: 80%; margin-left: 10%; margin-right: 10%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="dashboard-counts no-padding-bottom" style="padding-top:10px !important" id="searchSection">
+            <div class="container-fluid">
+                <div class="col-12" style="margin: auto; width: 70%;">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-xl-10 col-sm-10">
+                            <div style="min-width: 80%; margin-left: 10%; margin-right: 10%;" id="searchback">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+
+
+
+        &nbsp;
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#searchSection").css("display", "none");
+                $("#searchbox").keyup(function () {
+                    if ($("#searchbox").val() == "") {
+                        $("#searchback").html("");
+                    }
+                    $("#searchback").html("");
+                    $("#searchSection").css("display", "block");
+                    $.ajax({
+                        url: "/Api/Warehouses/" + $("#searchbox").val(),
+                        type: "Get",
+                        success: function (data) {
+                            $.each(data, function (index) {
+                                $("#searchback")
+                                    .append("<a href='/Warehouse/Edit/" + data[index].PId + "'><p>Product ID: " + data[index].PId + " &nbsp; | &nbsp; Name: " + data[index].Name + "</p></a><br />");
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("Error");
+                        }
+
+                    });
+                });
+            });
+
+            for (var i = 1; i <= 10; i++) {
+                document.getElementById(i).className = "";
+            }
+            document.getElementById("one").click();
+            document.getElementById("3").className = "active";
+        </script>
+        @Html.Partial("_footer")
+    </div>
+</div>
+
